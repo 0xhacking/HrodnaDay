@@ -44,7 +44,7 @@ class DBOperations {
         }
     }
 
-    fun insertArray(vararg notes: DayNoteModel) {
+    fun insertArray(notes: Array<DayNoteModel>) {
         fromNotes(notes).forEach {
             val readableDatabase = helper.readableDatabase
             try {
