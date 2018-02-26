@@ -23,7 +23,7 @@ class DBOperations {
                 null,
                 null,
                 DAY
-        ).use(this::allFromCursor)
+        ).use(this::allFromCursor).sortedBy { it.day }
     }
 
     private fun allFromCursor(cursor: Cursor): List<DayNoteModel> {

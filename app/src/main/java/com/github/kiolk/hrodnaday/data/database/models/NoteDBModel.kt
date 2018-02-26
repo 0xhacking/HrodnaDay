@@ -6,12 +6,11 @@ import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MUSEUM
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.PICTURE_URL
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.TABLE_NAME
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.TITLE
-import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB._ID
 
 object NoteDBModel {
 
     object NoteDB{
-        val _ID = "_id"
+//        val _ID = "_id"
         val DAY = "day"
         val PICTURE_URL = "picture_url"
         val TITLE = "title"
@@ -21,14 +20,14 @@ object NoteDBModel {
     }
 
     val SQL_CREATE_ENTRIES = """CREATE TABLE $TABLE_NAME (
-            $_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-            $DAY BIGINT,
+            $DAY BIGINT PRIMARY KEY NOT NULL,
             $PICTURE_URL TEXT,
             $DESCRIPTION TEXT,
             $TITLE TEXT,
             $MUSEUM TEXT
-    )""".trimMargin()
 
+    )""".trimMargin()
+//      $_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
     val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $TABLE_NAME"
 
     val SQL_QUERY_ALL = "SELECT * FROM $TABLE_NAME ORDER BY $DAY DESC"
