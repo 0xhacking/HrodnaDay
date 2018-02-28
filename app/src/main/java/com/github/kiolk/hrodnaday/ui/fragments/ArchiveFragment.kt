@@ -3,11 +3,16 @@ package com.github.kiolk.hrodnaday.ui.fragments
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.kiolk.hrodnaday.*
+import com.github.kiolk.hrodnaday.data.recycler.ClickListener
 import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
+import com.github.kiolk.hrodnaday.data.recycler.RecyclerTouchListener
+import kotlinx.android.synthetic.main.card_one_event_archive.view.*
 import kotlinx.android.synthetic.main.fragment_archive_events.view.*
 
 class ArchiveFragment : Fragment(){
@@ -19,6 +24,16 @@ class ArchiveFragment : Fragment(){
                 object : ResultCallback<ResponseModel>{
                     override fun onSuccess(param: ResponseModel) {
                         view.archive_events_recycler_view.layoutManager = LinearLayoutManager(activity.baseContext)
+                        view.archive_events_recycler_view.addOnItemTouchListener(RecyclerTouchListener(activity.baseContext, view.archive_events_recycler_view, object : ClickListener{
+                            override fun onClick(view: View, position: Int) {
+                                Log.d("MyLogs", "onClick Id ${view.title_card_text_view.text} and $position event")
+                            }
+
+                            override fun onLongClick(view: View, position: Int) {
+                                Log.d("MyLogs", "onLongClick Id $position event")
+
+                            }
+                        } ))
                         view.archive_events_recycler_view.adapter = param.objects?.let { EventArchiveAdapter(activity.baseContext, it) }
                     }
 
