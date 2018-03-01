@@ -1,12 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:isScrollContainer="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@android:color/transparent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/NOTE_PADDING">
+        <TextView
+            android:id="@+id/day_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/TITLE_TEXT_SIZE"
+            tools:text="1 March 2018" />
 
-    <TextView
-        android:id="@+id/title_one_event_card_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/test_picture_one_event_card_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:scaleType="fitCenter"
+            android:visibility="invisible"/>
 
+        <ImageView
+            android:id="@+id/picture_one_event_card_image_view"
+            android:layout_width="200dp"
+            android:layout_height="500dp"
+            android:scaleType="fitCenter"
+            android:layout_below="@+id/day_one_event_card_text_view"/>
+
+        <TextView
+            android:id="@+id/title_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/TITLE_TEXT_SIZE"
+            android:layout_below="@+id/picture_one_event_card_image_view"
+            tools:text="Title"/>
+        <TextView
+            android:id="@+id/author_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/MIDDLE_TEXT_SIZE"
+            tools:text="Zhora Bukovski"
+            android:layout_below="@+id/title_one_event_card_text_view"/>
+        <TextView
+            android:id="@+id/creating_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/SMALL_TEXT_SIZE"
+            tools:text="XX century"
+            android:layout_below="@+id/author_one_event_card_text_view"/>
+        <TextView
+            android:id="@+id/description_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/NORMAL_TEXT_SIZE"
+            android:layout_below="@+id/creating_one_event_card_text_view"/>
+    </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -12,6 +12,8 @@ import com.github.kiolk.hrodnaday.data.database.DBConnector
 import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
 import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
+import kiolk.com.github.pen.Pen
+import kiolk.com.github.pen.utils.PenConstantsUtil.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -26,6 +28,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         DBConnector.initInstance(this)
+
+        initImageLoader()
 
         mFragmentManager = fragmentManager
         archive = ArchiveFragment()
@@ -61,20 +65,26 @@ class MainActivity : AppCompatActivity() {
         archive_button_text_view.setOnClickListener(listener)
         day_event_button_text_view.setOnClickListener(listener)
 
-        SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cpcYerVABK?indent=2",
-                object : ResultCallback<ResponseModel> {
-                    override fun onSuccess(param: ResponseModel) {
-                        val arrayEvents = param.objects
-                        arrayEvents?.sortBy { it.day }
-                        val note = arrayEvents?.maxBy { it.day }
-                        title_text_view.text = note?.title
-                    }
+        if(checkConnection(this)) {
+            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cpqFVdqEaG?indent=2",
+                    object : ResultCallback<ResponseModel> {
+                        override fun onSuccess(param: ResponseModel) {
+                            val arrayEvents = param.objects
+                            arrayEvents?.sortBy { it.day }
+                            val note = arrayEvents?.maxBy { it.day }
+                            title_text_view.text = note?.title
+                        }
 
-                    override fun onError(exception: Exception) {
-                        title_text_view.text = exception.message
+                        override fun onError(exception: Exception) {
+                            title_text_view.text = exception.message
+                        }
                     }
-                }
-        ))
+            ))
+        }
+    }
+
+    private fun initImageLoader() {
+        Pen.getInstance().setLoaderSettings().setSavingStrategy(SAVE_FULL_IMAGE_STRATEGY).setContext(this).setTypeOfCache(INNER_FILE_CACHE).setSizeInnerFileCache(10).setUp()
     }
 
     override fun onBackPressed() {
