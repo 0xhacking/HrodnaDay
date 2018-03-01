@@ -7,12 +7,6 @@
     android:orientation="vertical"
     tools:context="com.github.kiolk.hrodnaday.ui.MainActivity">
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </FrameLayout>
-
     <LinearLayout
         android:id="@+id/button_linear_layout"
         android:layout_width="match_parent"
@@ -52,6 +46,15 @@
         android:layout_below="@+id/button_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/full_screen_frame_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/colorAccent">
 
     </FrameLayout>
 

@@ -12,7 +12,7 @@ import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import kotlinx.android.synthetic.main.card_one_event_archive.view.*
 
-class EventArchiveAdapter(private val pContext: Context, private var pNotes : Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>() {
+class EventArchiveAdapter(private val pContext: Context, private var pNotes: Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>() {
 //
 //    init {
 //        setHasStableIds(true)
@@ -43,12 +43,12 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes : Ar
         return EventArchiveViewHolder(view)
     }
 
-    class EventArchiveViewHolder internal constructor(itemView : View) : RecyclerView.ViewHolder(itemView){
-        var note : DayNoteModel? = null
+    class EventArchiveViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var note: DayNoteModel? = null
         val title: TextView = itemView.title_card_text_view
         val museum: TextView = itemView.museum_card_text_view
 
-        fun openEvent(){
+        fun openEvent() {
             Log.d("MyLogs", "Id $adapterPosition} event")
         }
     }

@@ -9,7 +9,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.github.kiolk.hrodnaday.*
 import com.github.kiolk.hrodnaday.data.database.DBConnector
+import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
+import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     var mTransaction: FragmentTransaction? = null
     var mFragmentManager: FragmentManager? = null
     var archive : ArchiveFragment? = null
+    var oneEvent : OneEventFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         mFragmentManager = fragmentManager
         archive = ArchiveFragment()
+        oneEvent = OneEventFragment()
 
 
         val listener = View.OnClickListener {
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         archive_button_text_view.setOnClickListener(listener)
         day_event_button_text_view.setOnClickListener(listener)
 
-        SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bUEgRdnXJu?indent=2",
+        SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cpcYerVABK?indent=2",
                 object : ResultCallback<ResponseModel> {
                     override fun onSuccess(param: ResponseModel) {
                         val arrayEvents = param.objects
@@ -73,9 +77,27 @@ class MainActivity : AppCompatActivity() {
         ))
     }
 
+    override fun onBackPressed() {
+        if (full_screen_frame_layout.visibility == View.VISIBLE){
+            closeFragment(oneEvent)
+            full_screen_frame_layout.visibility = View.GONE
+        }
+    }
+
     fun showArchiveFragment(){
         showFragment(R.id.main_frame_layout, archive)
-        archive?.presentData()
+        archive?.presentData(object : ItemClickListener{
+            override fun onItemClick(date: Long) {
+                if (full_screen_frame_layout.visibility != View.VISIBLE) showOneEventFragment(date)
+            }
+        })
+
+    }
+
+    fun showOneEventFragment(date : Long){
+        full_screen_frame_layout.visibility = View.VISIBLE
+        showFragment(R.id.full_screen_frame_layout, oneEvent)
+        oneEvent?.showChosenDay(date)
     }
 
     fun showFragment(pContainer: Int, pFragment: Fragment?) {
