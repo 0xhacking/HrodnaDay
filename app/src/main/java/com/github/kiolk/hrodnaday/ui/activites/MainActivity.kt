@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
         day_event_button_text_view.setOnClickListener(listener)
 
         if(checkConnection(this)) {
-            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cpqFVdqEaG?indent=2",
+            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bUREitxpCG?indent=2",
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {
                             val arrayEvents = param.objects

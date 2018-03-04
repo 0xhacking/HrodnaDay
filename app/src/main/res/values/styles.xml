@@ -14,4 +14,9 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="Theme.AppCompat.Light.WithoutTitle">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">false</item>
+    </style>
+
 </resources>

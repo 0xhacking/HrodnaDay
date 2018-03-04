@@ -15,7 +15,11 @@ import kiolk.com.github.pen.GetBitmapCallback
 import kiolk.com.github.pen.Pen
 import kotlinx.android.synthetic.main.card_one_event.view.*
 
-class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteModel>) : RecyclerView.Adapter<OneEventAdapter.OneEventViewHolder>(){
+interface PictureClickListener{
+    fun onPictureClick(pictureUrl : String)
+}
+
+class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteModel>, val listener : PictureClickListener) : RecyclerView.Adapter<OneEventAdapter.OneEventViewHolder>(){
 
 
     override fun getItemCount(): Int {
@@ -28,11 +32,13 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
         Pen.getInstance().getImageFromUrl(arrayEvents[position].pictureUrl).getBitmapDirect(object : GetBitmapCallback{
             override fun getBitmap(pBitmapFromLoader: Bitmap?): Bitmap {
                val width = context.applicationContext.resources.displayMetrics.widthPixels
+                //TODO need refactor this. Transfer in Pen library
                 holder?.picture?.layoutParams?.width = width
                 val widthPicture = pBitmapFromLoader?.width
                 val heightPicture = pBitmapFromLoader?.height
                 val ratioPicture = widthPicture?.let { heightPicture?.div(it.toFloat()) }
                 val height = ratioPicture?.times(width)
+//                val fileName : String = pBitmapFromLoader
                 holder?.picture?.layoutParams?.height = height?.toInt()
 //                var height = holder?.picture?.layoutParams?.height
                 holder?.picture?.setImageBitmap(pBitmapFromLoader)
@@ -43,10 +49,11 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
             }
         })
 
-//        holder?.picture?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
         holder?.author?.text = arrayEvents[position].author
         holder?.creating?.text = arrayEvents[position].creating
         holder?.description?.text = arrayEvents[position].description
+        holder?.pictureUrl = arrayEvents[position].pictureUrl
+        holder?.pictureClickListener = listener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OneEventViewHolder {
@@ -54,14 +61,24 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
         return OneEventViewHolder(view)
     }
 
-    class OneEventViewHolder internal constructor(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    class OneEventViewHolder internal constructor(itemView : View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        var pictureUrl : String? = null
+        var pictureClickListener : PictureClickListener? = null
         var title : TextView = itemView.title_one_event_card_text_view
         var day : TextView = itemView.day_one_event_card_text_view
         var picture : ImageView = itemView.picture_one_event_card_image_view
-        var testPicture : ImageView = itemView.test_picture_one_event_card_image_view
         var author : TextView = itemView.author_one_event_card_text_view
         var creating : TextView = itemView.creating_one_event_card_text_view
         var description : TextView = itemView.description_one_event_card_text_view
-    }
 
+        init {
+            picture.setOnClickListener(this)
+        }
+
+
+        override fun onClick(v: View?) {
+
+            if (v?.id ==  R.id.picture_one_event_card_image_view) pictureUrl?.let { pictureClickListener?.onPictureClick(it) }
+        }
+    }
 }

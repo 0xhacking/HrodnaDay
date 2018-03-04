@@ -17,26 +17,34 @@
             android:textSize="@dimen/TITLE_TEXT_SIZE"
             tools:text="1 March 2018" />
 
-        <ImageView
-            android:id="@+id/test_picture_one_event_card_image_view"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:scaleType="fitCenter"
-            android:visibility="invisible"/>
+        <RelativeLayout
+            android:id="@+id/picture_layer_relative_layout"
+            android:layout_below="@+id/day_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_dark_background">
 
-        <ImageView
-            android:id="@+id/picture_one_event_card_image_view"
-            android:layout_width="200dp"
-            android:layout_height="500dp"
-            android:scaleType="fitCenter"
-            android:layout_below="@+id/day_one_event_card_text_view"/>
+            <ImageView
+                android:id="@+id/picture_one_event_card_image_view"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitCenter"
+                android:clickable="true"
+                android:focusable="true"
+
+                android:layout_margin="4dp"/>
+
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/title_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/TITLE_TEXT_SIZE"
-            android:layout_below="@+id/picture_one_event_card_image_view"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_below="@+id/picture_layer_relative_layout"
             tools:text="Title"/>
         <TextView
             android:id="@+id/author_one_event_card_text_view"
