@@ -8,6 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--<style name="AppTheme.Translucent" parent="AppTheme">-->
+        <!--<item name="windowBackground">color/translucent</item>-->
+        <!--<item name="colorBackgroundCacheHint">null</item>-->
+        <!--<item name="windowIsTranslucent">true</item>-->
+        <!--&lt;!&ndash; Note that we use the base animation style here (that is no-->
+             <!--animations) because we really have no idea how this kind of-->
+             <!--activity will be used. &ndash;&gt;-->
+        <!--<item name="windowAnimationStyle">@style/Animation</item>-->
+    <!--</style>-->
+
     <style name="GeneralButton">
         <item name="android:background">@color/BUTTON_COLOR</item>
         <item name="android:gravity">center</item>
@@ -17,6 +27,10 @@
     <style name="Theme.AppCompat.Light.WithoutTitle">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">false</item>
+    </style>
+
+    <style name="MyTheme" parent="AppTheme" >
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
 </resources>

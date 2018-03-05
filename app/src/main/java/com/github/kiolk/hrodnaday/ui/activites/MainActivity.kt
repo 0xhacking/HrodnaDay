@@ -5,6 +5,7 @@ import android.app.FragmentManager
 import android.app.FragmentTransaction
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import com.github.kiolk.hrodnaday.*
@@ -15,6 +16,7 @@ import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
 import kiolk.com.github.pen.Pen
 import kiolk.com.github.pen.utils.PenConstantsUtil.*
 import kotlinx.android.synthetic.main.activity_main.*
+import layout.SlideEventsFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     var mFragmentManager: FragmentManager? = null
     var archive : ArchiveFragment? = null
     var oneEvent : OneEventFragment? = null
+    var arrayDayEvents : Array<DayNoteModel>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,20 +45,23 @@ class MainActivity : AppCompatActivity() {
                 archive_button_text_view.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                 day_event_button_text_view.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                 closeFragment(archive)
+                events_view_pager.visibility = View.GONE
 
                 when (it) {
                     about_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
-                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
+//                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
                     }
                     archive_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
-                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
+//                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                         showArchiveFragment()
                     }
                     day_event_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
-                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.UPPER_BUTTON_LINE))
+//                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.UPPER_BUTTON_LINE))
+                        events_view_pager.visibility = View.VISIBLE
+//                        if(arrayDayEvents != null) startDayEventViewPager()
                     }
                 }
             }
@@ -72,15 +78,26 @@ class MainActivity : AppCompatActivity() {
                             val arrayEvents = param.objects
                             arrayEvents?.sortBy { it.day }
                             val note = arrayEvents?.maxBy { it.day }
-                            title_text_view.text = note?.title
+//                            title_text_view.text = note?.title
+                            arrayDayEvents= arrayEvents
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                                day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
+                            }
+                            startDayEventViewPager()
                         }
 
                         override fun onError(exception: Exception) {
-                            title_text_view.text = exception.message
                         }
                     }
             ))
         }
+    }
+
+    private fun startDayEventViewPager() {
+        events_view_pager.visibility = View.VISIBLE
+        val pageAdapter = ScreenSlideAdapter(supportFragmentManager, arrayDayEvents)
+        events_view_pager.adapter = pageAdapter
+        events_view_pager.currentItem = arrayDayEvents?.size?.minus(1) ?:0
     }
 
     private fun initImageLoader() {
@@ -91,6 +108,8 @@ class MainActivity : AppCompatActivity() {
         if (full_screen_frame_layout.visibility == View.VISIBLE){
             closeFragment(oneEvent)
             full_screen_frame_layout.visibility = View.GONE
+            main_frame_layout.visibility = View.VISIBLE
+            button_linear_layout.visibility = View.VISIBLE
         }
     }
 
@@ -106,6 +125,8 @@ class MainActivity : AppCompatActivity() {
 
     fun showOneEventFragment(date : Long){
         full_screen_frame_layout.visibility = View.VISIBLE
+        main_frame_layout.visibility = View.GONE
+        button_linear_layout.visibility = View.INVISIBLE
         showFragment(R.id.full_screen_frame_layout, oneEvent)
         oneEvent?.showChosenDay(date)
     }
@@ -122,4 +143,31 @@ class MainActivity : AppCompatActivity() {
         mTransaction?.remove(pFragment)
         mTransaction?.commit()
     }
+
+    class ScreenSlideAdapter(fm: android.support.v4.app.FragmentManager, array : Array<DayNoteModel>?) : FragmentStatePagerAdapter(fm) {
+
+        var arrayNotes : Array<DayNoteModel>? = null
+
+        init {
+            arrayNotes = array
+        }
+
+        override fun getItem(position: Int): android.support.v4.app.Fragment {
+            if (position == arrayNotes?.size) {
+              return  SlideEventsFragment().formInstance(DayNoteModel(day = 2333333))
+            }
+            return SlideEventsFragment().formInstance(arrayNotes?.get(position))
+        }
+
+        override fun getCount(): Int {
+            return arrayNotes?.size?.plus(1) ?: 2
+        }
+
+        override fun getItemPosition(`object`: Any?): Int {
+            return super.getItemPosition(`object`)
+        }
+
+
+    }
+
 }

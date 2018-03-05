@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:isScrollContainer="true"
     android:background="@drawable/colorlees_background">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/one_event_recycler_view"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/colorlees_background">
-
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+        <include layout="@layout/card_one_event"/>
+    </ScrollView>
+</RelativeLayout>

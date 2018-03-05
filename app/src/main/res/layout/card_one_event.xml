@@ -5,11 +5,11 @@
     android:isScrollContainer="true"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:background="@android:color/transparent">
+    android:background="@drawable/colorlees_background">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/NOTE_PADDING">
+        android:layout_margin="20dp">
         <TextView
             android:id="@+id/day_one_event_card_text_view"
             android:layout_width="wrap_content"

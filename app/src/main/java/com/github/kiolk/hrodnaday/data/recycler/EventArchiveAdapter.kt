@@ -1,6 +1,7 @@
 package com.github.kiolk.hrodnaday.data.recycler
 
 import android.content.Context
+import android.os.Build
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,6 +26,9 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
     override fun onBindViewHolder(holder: EventArchiveViewHolder?, position: Int) {
         val event = pNotes[position]
         Log.d("MyLogs", "$position")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            holder?.itemView?.background = pContext.resources.getDrawable(R.drawable.colorlees_background)
+        }
         holder?.title?.text = event.day.toString()
         holder?.museum?.text = event.museum
         holder?.note = event

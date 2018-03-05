@@ -1,5 +1,7 @@
 package com.github.kiolk.hrodnaday
 
+import java.io.Serializable
+
 data class DayNoteModel(var day : Long = 0,
            var pictureUrl : String = "Default url",
            var title : String = "title",
@@ -11,4 +13,4 @@ data class DayNoteModel(var day : Long = 0,
            var museum : String = "museum",
            var museumUrl : String = "museumUrl",
            var museumCoordinates : String = "museumCoordinates",
-           var articleAuthor : String = "articleCoordinates")
+           var articleAuthor : String = "articleCoordinates") : Serializable
