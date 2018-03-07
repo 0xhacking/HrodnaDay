@@ -21,4 +21,12 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getTargetContext()
         assertEquals("com.github.kiolk.hrodnaday", appContext.packageName)
     }
+
+    @Test
+    fun checkDateConverter(){
+        val date : Long = 1520454462000
+        val appContext = InstrumentationRegistry.getTargetContext()
+        val result = convertEpochTime(date, appContext)
+        assertEquals("ssss", result)
+    }
 }

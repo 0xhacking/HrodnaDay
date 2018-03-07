@@ -26,7 +26,7 @@ object NoteDBModel {
         val SIZE = "size"
         val MATERIALS = "materials"
         val DESCRIPTION = "description"
-        val MUSEUM = "museum"
+        val MUSEUM = "author"
         val MUSEUM_URL = "museum_url"
         val MUSEUM_COORDINATES = "museum_coordinates"
         val TABLE_NAME = "day_notes"

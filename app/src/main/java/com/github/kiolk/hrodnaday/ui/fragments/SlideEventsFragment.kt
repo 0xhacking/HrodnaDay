@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.startActivity
+import android.support.v7.widget.CardView
 //import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import android.widget.TextView
 import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.PictureActivity
 import com.github.kiolk.hrodnaday.R
+import com.github.kiolk.hrodnaday.convertEpochTime
 import com.github.kiolk.hrodnaday.data.recycler.ClickListener
 import com.github.kiolk.hrodnaday.data.recycler.setupPicture
 import com.github.kiolk.hrodnaday.ui.fragments.PICTURE_URL
@@ -55,12 +57,16 @@ class SlideEventsFragment: Fragment() {
 }
 
 fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
-    view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = dayNote.day.toString()
+    view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = convertEpochTime(dayNote.day, view?.context)
 //    Pen.getInstance().getImageFromUrl(dayNote.pictureUrl).inputTo(view?.findViewById(R.id.picture_one_event_card_image_view))
     view?.findViewById<TextView>(R.id.title_one_event_card_text_view)?.text = dayNote.title
     view?.findViewById<TextView>(R.id.author_one_event_card_text_view)?.text = dayNote.author
     view?.findViewById<TextView>(R.id.creating_one_event_card_text_view)?.text = dayNote.creating
     view?.findViewById<TextView>(R.id.description_one_event_card_text_view)?.text = dayNote.description
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
+        view?.findViewById<CardView>(R.id.event_card_view)?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
+    }
     val array : Array<DayNoteModel> = arrayOf(dayNote)
     view?.findViewById<ImageView>(R.id.picture_one_event_card_image_view)?.setOnClickListener(object : View.OnClickListener{
         override fun onClick(v: View?) {

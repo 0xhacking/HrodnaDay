@@ -74,14 +74,15 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
  fun setupPicture(position: Int, view : ImageView?, arrayEvents: Array<DayNoteModel>, context: Context) {
     Pen.getInstance().getImageFromUrl(arrayEvents[position].pictureUrl).getBitmapDirect(object : GetBitmapCallback {
         override fun getBitmap(pBitmapFromLoader: Bitmap?): Bitmap {
-            val width = context.applicationContext.resources.displayMetrics.widthPixels
+//            val width = context.applicationContext.resources.displayMetrics.widthPixels
+            val width = view?.width
 //            val widthDp = width.div(context.resources.displayMetrics.density)
             //TODO need refactor this. Transfer in Pen library
             view?.layoutParams?.width = width
             val widthPicture = pBitmapFromLoader?.width
             val heightPicture = pBitmapFromLoader?.height
             val ratioPicture = widthPicture?.let { heightPicture?.div(it.toFloat()) }
-            val height = ratioPicture?.times(width)
+            val height = width?.let { ratioPicture?.times(it) }
             //                val fileName : String = pBitmapFromLoader
             view?.layoutParams?.height = height?.toInt()
             //                var height = holder?.picture?.layoutParams?.height

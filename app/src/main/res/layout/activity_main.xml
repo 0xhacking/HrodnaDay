@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.github.kiolk.hrodnaday.ui.MainActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/textured_paper">
 
     <LinearLayout
         android:id="@+id/button_linear_layout"

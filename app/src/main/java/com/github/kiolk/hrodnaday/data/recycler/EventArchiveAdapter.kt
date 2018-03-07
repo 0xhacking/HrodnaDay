@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import kotlinx.android.synthetic.main.card_one_event_archive.view.*
@@ -29,8 +28,8 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder?.itemView?.background = pContext.resources.getDrawable(R.drawable.colorlees_background)
         }
-        holder?.title?.text = event.day.toString()
-        holder?.museum?.text = event.museum
+        holder?.title?.text = event.title
+        holder?.author?.text = event.author
         holder?.note = event
     }
 
@@ -50,7 +49,7 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
     class EventArchiveViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var note: DayNoteModel? = null
         val title: TextView = itemView.title_card_text_view
-        val museum: TextView = itemView.museum_card_text_view
+        val author: TextView = itemView.museum_card_text_view
 
         fun openEvent() {
             Log.d("MyLogs", "Id $adapterPosition} event")

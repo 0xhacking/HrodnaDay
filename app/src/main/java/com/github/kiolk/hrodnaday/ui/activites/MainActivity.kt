@@ -72,14 +72,16 @@ class MainActivity : AppCompatActivity() {
         day_event_button_text_view.setOnClickListener(listener)
 
         if(checkConnection(this)) {
-            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bUREitxpCG?indent=2",
+            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cvCkWHGgLC?indent=2",
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {
                             val arrayEvents = param.objects
                             arrayEvents?.sortBy { it.day }
                             val note = arrayEvents?.maxBy { it.day }
-//                            title_text_view.text = note?.title
-                            arrayDayEvents= arrayEvents
+                            val currentTimeMillis = System.currentTimeMillis()
+                            val currentDay = currentTimeMillis - currentTimeMillis.rem(86400000) + 86400000
+
+                            arrayDayEvents = arrayEvents?.filter { it.day < currentDay  }?.toTypedArray()
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                 day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
                             }

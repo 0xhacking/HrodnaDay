@@ -7,4 +7,6 @@
     <dimen name="MIDDLE_TEXT_SIZE">24sp</dimen>
     <dimen name="SMALL_TEXT_SIZE">16sp</dimen>
     <dimen name="NORMAL_TEXT_SIZE">20sp</dimen>
+    <dimen name="FRAME_PADDING">10dp</dimen>
+    <dimen name="PICTURE_ELEVATION">10dp</dimen>
 </resources>

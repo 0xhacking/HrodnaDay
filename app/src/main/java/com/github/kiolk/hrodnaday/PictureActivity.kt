@@ -20,7 +20,7 @@ class PictureActivity : AppCompatActivity() {
         val tag = MD5Util.getHashString(pictureUrl)
 
         Log.d("MyLogs", pictureUrl)
-        val data : String = "<body bgcolor=\"#000000\"><div class=\"centered-content\" align=\"middle\" | \"bottom\" | \"top\" | \"justify\"><img src=\"$tag.jpg\"/></div></body>"
+        val data : String = "<body bgcolor=\"#000000\"><div class=\"centered-content\" align=\"middle\" ><img src=\"$tag.jpg\"/></div></body>"
         picture_web_view.loadDataWithBaseURL(url, data,  "text/html", "UTF-8", null )
 //        picture_web_view.loadUrl("https://loremflickr.com/320/240")
         picture_web_view.settings.builtInZoomControls = true
