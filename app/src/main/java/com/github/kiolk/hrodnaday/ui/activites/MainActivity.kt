@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         day_event_button_text_view.setOnClickListener(listener)
 
         if(checkConnection(this)) {
-            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cvCkWHGgLC?indent=2",
+            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cgeKCJbAzm?indent=2",
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {
                             val arrayEvents = param.objects
@@ -100,6 +100,9 @@ class MainActivity : AppCompatActivity() {
         val pageAdapter = ScreenSlideAdapter(supportFragmentManager, arrayDayEvents)
         events_view_pager.adapter = pageAdapter
         events_view_pager.currentItem = arrayDayEvents?.size?.minus(1) ?:0
+        events_view_pager.clipToPadding = false
+        events_view_pager.setPadding(48, 0, 48, 0)
+        events_view_pager.pageMargin = 30
     }
 
     private fun initImageLoader() {

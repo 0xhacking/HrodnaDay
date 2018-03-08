@@ -18,24 +18,31 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/TITLE_TEXT_SIZE"
             tools:text="1 March 2018" />
+        <RelativeLayout
+            android:id="@+id/frame_card_relative_layout"
+            android:layout_below="@+id/day_one_event_card_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/frame_background">
+
+
 
         <RelativeLayout
             android:id="@+id/picture_layer_relative_layout"
-            android:layout_below="@+id/day_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/picture_one_event_card_image_view"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
                 android:scaleType="fitCenter"
                 android:clickable="true"
                 android:focusable="true"
                 android:elevation="@dimen/PICTURE_ELEVATION"
-                android:padding="20dp"
-                android:background="@drawable/frame_background"
-                android:layout_margin="0dp"/>
+               />
+
+        </RelativeLayout>
 
         </RelativeLayout>
 
@@ -47,7 +54,7 @@
             android:textSize="@dimen/TITLE_TEXT_SIZE"
             android:clickable="true"
             android:focusable="true"
-            android:layout_below="@+id/picture_layer_relative_layout"
+            android:layout_below="@+id/frame_card_relative_layout"
             tools:text="Title"/>
         <TextView
             android:id="@+id/author_one_event_card_text_view"

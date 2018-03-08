@@ -87,9 +87,10 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
             view?.layoutParams?.height = height?.toInt()
             //                var height = holder?.picture?.layoutParams?.height
             view?.setImageBitmap(pBitmapFromLoader)
+
             //                holder?.picture?.layoutParams?.height = ViewGroup.LayoutParams.WRAP_CONTENT
             //                height = holder?.picture?.layoutParams?.height
-            Pen.getInstance().getImageFromUrl(arrayEvents[position].pictureUrl).inputTo(view)
+//            Pen.getInstance().getImageFromUrl(arrayEvents[position].pictureUrl).inputTo(view)
             return pBitmapFromLoader!!
         }
     })
