@@ -8,6 +8,7 @@ import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.AUTHOR
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.CREATING
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.DAY
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.DESCRIPTION
+import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.LANGUAGE
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MATERIALS
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MUSEUM
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MUSEUM_COORDINATES
@@ -56,6 +57,7 @@ class DBOperations {
             museumUrl = cursor.getString(cursor.getColumnIndex(MUSEUM_URL))
             museumCoordinates = cursor.getString(cursor.getColumnIndex(MUSEUM_COORDINATES))
             articleAuthor = cursor.getString(cursor.getColumnIndex(ARTICLE_AUTHOR))
+            language = cursor.getString(cursor.getColumnIndex(LANGUAGE))
         }
     }
 
@@ -107,6 +109,7 @@ private fun fromDayNote(note: DayNoteModel): ContentValues {
         put(MUSEUM_URL, note.museumUrl)
         put(MUSEUM_COORDINATES, note.museumCoordinates)
         put(ARTICLE_AUTHOR, note.articleAuthor)
+        put(LANGUAGE, note.language)
     }
 }
 }

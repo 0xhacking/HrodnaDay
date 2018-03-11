@@ -1,10 +1,12 @@
 package layout
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.startActivity
+import android.support.v4.view.ViewPager
 import android.support.v7.widget.CardView
 //import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
@@ -47,7 +49,17 @@ class SlideEventsFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_screen_events, null) ?: super.onCreateView(inflater, container, savedInstanceState)
         view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = day.toString()
+        val backToTodayView = view?.findViewById<TextView>(R.id.back_to_today_text_view)
+        backToTodayView?.visibility = View.VISIBLE
+        backToTodayView?.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+               val pager : ViewPager=  view.parent as ViewPager
+                pager.currentItem = 1
+            }
+
+        })
         setUpNoteInView( view, dayNote )
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
         }

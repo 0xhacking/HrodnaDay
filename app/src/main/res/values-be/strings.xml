@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HrodnaDay</string>
     <string name="HRODNA_DAY">HRODNA DAY</string>
@@ -6,7 +7,8 @@
     <string name="LANGUAGE">Language</string>
     <string name="ENGLISH">English</string>
     <string name="RUSSIAN">Russian</string>
-    <string name="BELARUSIAN">Bealrusian</string>
+    <string name="BELARUSIAN">Беларусь</string>
+    <string name="M03">Сакавіка</string>
     <string name="LEAVE_MESSAGE">Are you want leave?</string>
     <string name="LEAVE">Leave</string>
     <string name="NO">No</string>

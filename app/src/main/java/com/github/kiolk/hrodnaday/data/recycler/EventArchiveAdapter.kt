@@ -13,14 +13,10 @@ import com.github.kiolk.hrodnaday.R
 import kotlinx.android.synthetic.main.card_one_event_archive.view.*
 
 class EventArchiveAdapter(private val pContext: Context, private var pNotes: Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>() {
-//
-//    init {
-//        setHasStableIds(true)
-//    }
 
-//    override fun onClick(v: View?) {
-//        Log.d("MyLogs", "Id ${v?.id} event: ${pNotes[v?.id ?: 0]}")
-//    }
+    init {
+        pNotes = pNotes.filter { it.language == pContext.resources.configuration.locale.language }.toTypedArray()
+    }
 
     override fun onBindViewHolder(holder: EventArchiveViewHolder?, position: Int) {
         val event = pNotes[position]

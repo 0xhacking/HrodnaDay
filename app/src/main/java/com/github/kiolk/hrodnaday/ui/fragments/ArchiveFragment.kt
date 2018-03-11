@@ -28,7 +28,7 @@ class ArchiveFragment : Fragment(){
                             override fun onClick(view: View, position: Int) {
                                 Log.d("MyLogs", "onClick Id ${view.title_card_text_view.text} and $position event")
                                 val date = view.title_card_text_view.text
-                                itemListener.onItemClick(date.toString().toLong())
+                                itemListener.onItemClick(date.toString())
                             }
 
                             override fun onLongClick(view: View, position: Int) {

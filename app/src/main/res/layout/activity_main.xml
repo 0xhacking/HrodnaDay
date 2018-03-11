@@ -8,11 +8,13 @@
     tools:context="com.github.kiolk.hrodnaday.ui.MainActivity"
     android:background="@drawable/textured_paper">
 
+    <include layout="@layout/layout_leave_message"/>
     <LinearLayout
         android:id="@+id/button_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/BUTTOM_HEIGHT"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/day_event_button_text_view"
             android:layout_width="0dp"

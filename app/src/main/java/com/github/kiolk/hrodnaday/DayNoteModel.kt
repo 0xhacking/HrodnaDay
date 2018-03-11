@@ -12,5 +12,6 @@ data class DayNoteModel(var day : Long = 0,
            var materials : String = "materials",
            var museum : String = "author",
            var museumUrl : String = "museumUrl",
+           var language : String = "language",
            var museumCoordinates : String = "museumCoordinates",
            var articleAuthor : String = "articleCoordinates") : Serializable

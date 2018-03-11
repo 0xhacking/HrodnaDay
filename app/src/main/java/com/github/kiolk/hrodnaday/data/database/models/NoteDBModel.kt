@@ -5,6 +5,7 @@ import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.AUTHOR
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.CREATING
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.DAY
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.DESCRIPTION
+import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.LANGUAGE
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MATERIALS
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MUSEUM
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MUSEUM_COORDINATES
@@ -31,6 +32,7 @@ object NoteDBModel {
         val MUSEUM_COORDINATES = "museum_coordinates"
         val TABLE_NAME = "day_notes"
         val ARTICLE_AUTHOR = "article_author"
+        val LANGUAGE = "language"
     }
 
     val SQL_CREATE_ENTRIES = """CREATE TABLE $TABLE_NAME (
@@ -41,6 +43,7 @@ object NoteDBModel {
             $AUTHOR TEXT,
             $CREATING TEXT,
             $SIZE TEXT,
+            $LANGUAGE TEXT,
             $MATERIALS TEXT,
             $MUSEUM_URL TEXT,
             $MUSEUM_COORDINATES TEXT,
