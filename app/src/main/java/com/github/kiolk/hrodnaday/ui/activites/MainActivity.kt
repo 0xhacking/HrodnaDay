@@ -1,21 +1,22 @@
 package com.github.kiolk.hrodnaday.ui
 
-import android.app.Activity
-import android.app.Fragment
-import android.app.FragmentManager
-import android.app.FragmentTransaction
+import android.app.*
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.support.v7.widget.SearchView
 import com.github.kiolk.hrodnaday.*
 import com.github.kiolk.hrodnaday.data.database.DBConnector
+import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
 import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFERNCES
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFIX
@@ -37,9 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     var mTransaction: FragmentTransaction? = null
     var mFragmentManager: FragmentManager? = null
-    var archive : ArchiveFragment? = null
-    var oneEvent : OneEventFragment? = null
-    var arrayDayEvents : Array<DayNoteModel>? = null
+    var archive: ArchiveFragment? = null
+    var oneEvent: OneEventFragment? = null
+    var arrayDayEvents: Array<DayNoteModel>? = null
+    lateinit var mainMenu: Menu
+    lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,16 +65,20 @@ class MainActivity : AppCompatActivity() {
                 day_event_button_text_view.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                 closeFragment(archive)
                 events_view_pager.visibility = View.GONE
+                mainMenu.findItem(R.id.search_menu_item).isVisible = false
+
 
                 when (it) {
                     about_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
 //                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
+                        setTheme(R.style.MyTheme_Dark)
                     }
                     archive_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
 //                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                         showArchiveFragment()
+                        mainMenu.findItem(R.id.search_menu_item).isVisible = true
                     }
                     day_event_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
@@ -87,8 +94,8 @@ class MainActivity : AppCompatActivity() {
         archive_button_text_view.setOnClickListener(listener)
         day_event_button_text_view.setOnClickListener(listener)
 
-        if(checkConnection(this)) {
-            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/cczIrzwnEy?indent=2",
+        if (checkConnection(this)) {
+            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {
                             val arrayEvents = param.objects
@@ -96,9 +103,9 @@ class MainActivity : AppCompatActivity() {
                             val note = arrayEvents?.maxBy { it.day }
                             val currentTimeMillis = System.currentTimeMillis()
                             val currentDay = currentTimeMillis - currentTimeMillis.rem(86400000) + 86400000
-                            val locale : String = baseContext.resources.configuration.locale.language
+                            val locale: String = baseContext.resources.configuration.locale.language
                             Log.d("MyLogs", locale)
-                            arrayDayEvents = arrayEvents?.filter { it.day < currentDay  }?.toTypedArray()
+                            arrayDayEvents = arrayEvents?.filter { it.day < currentDay }?.toTypedArray()
                             arrayDayEvents = arrayDayEvents?.filter { it.language.equals(locale) }?.toTypedArray()
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                                 day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
@@ -118,14 +125,42 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        mainMenu = menu!!
         menuInflater.inflate(R.menu.menu_main, menu)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = menu?.findItem(R.id.search_menu_item)?.actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.maxWidth = Int.MAX_VALUE
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val adapter = archive?.getAdapter() as EventArchiveAdapter
+                adapter.filter.filter(query)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.toCharArray()?.size == 0) {
+                    val adapter = archive?.getAdapter() as EventArchiveAdapter
+                    adapter.filter.filter(newText)
+                }
+                return true
+            }
+        })
+
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.language_menu_item -> {
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val menuItem = menu?.findItem(R.id.search_menu_item)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.search_menu_item -> {
+                closeFragment(archive)
+                showArchiveFragment()
             }
             R.id.english_menu_item -> {
                 changeLocale("en")
@@ -143,23 +178,19 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
-        super.onSaveInstanceState(outState)
-    }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
         super.onRestoreInstanceState(savedInstanceState)
         loadData()
     }
 
-    fun saveData(lang : String){
+    fun saveData(lang: String) {
         val prefernces = getSharedPreferences(LANGUAGE_PREFERNCES, Activity.MODE_PRIVATE)
         val editor = prefernces.edit()
         editor.putString(LANGUAGE_PREFIX, lang)
         editor.commit()
     }
 
-    fun loadData(){
+    fun loadData() {
         val preferences = getSharedPreferences(LANGUAGE_PREFERNCES, Activity.MODE_PRIVATE)
         val lang = preferences.getString(LANGUAGE_PREFIX, "en")
         changeLocale(lang)
@@ -184,7 +215,7 @@ class MainActivity : AppCompatActivity() {
         events_view_pager.visibility = View.VISIBLE
         val pageAdapter = ScreenSlideAdapter(supportFragmentManager, arrayDayEvents)
         events_view_pager.adapter = pageAdapter
-        events_view_pager.currentItem = arrayDayEvents?.size?.minus(1) ?:0
+        events_view_pager.currentItem = arrayDayEvents?.size?.minus(1) ?: 0
         events_view_pager.clipToPadding = false
         events_view_pager.setPadding(48, 0, 48, 0)
         events_view_pager.pageMargin = 30
@@ -195,21 +226,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (full_screen_frame_layout.visibility == View.VISIBLE){
+        if (full_screen_frame_layout.visibility == View.VISIBLE) {
             closeFragment(oneEvent)
             full_screen_frame_layout.visibility = View.GONE
             main_frame_layout.visibility = View.VISIBLE
             button_linear_layout.visibility = View.VISIBLE
-        }else{
+        } else if (!searchView.isIconified) {
+            searchView.isIconified = true
+        } else {
             LeavingMessageFragment().show(supportFragmentManager, null)
 //            super.onBackPressed()
         }
-
     }
 
-    fun showArchiveFragment(){
+    fun showArchiveFragment() {
         showFragment(R.id.main_frame_layout, archive)
-        archive?.presentData(object : ItemClickListener{
+        archive?.presentData(object : ItemClickListener {
             override fun onItemClick(date: String) {
                 if (full_screen_frame_layout.visibility != View.VISIBLE) arrayDayEvents?.find { it.title == date }?.day?.let { showOneEventFragment(it) }
             }
@@ -217,7 +249,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun showOneEventFragment(date : Long){
+    fun showOneEventFragment(date: Long) {
         full_screen_frame_layout.visibility = View.VISIBLE
         main_frame_layout.visibility = View.GONE
         button_linear_layout.visibility = View.INVISIBLE
@@ -232,16 +264,16 @@ class MainActivity : AppCompatActivity() {
         mFragmentManager?.executePendingTransactions()
     }
 
-    fun closeFragment(pFragment : Fragment?){
+    fun closeFragment(pFragment: Fragment?) {
         mTransaction = mFragmentManager?.beginTransaction()
         mTransaction?.remove(pFragment)
         mTransaction?.commit()
     }
 
-    class ScreenSlideAdapter(fm: android.support.v4.app.FragmentManager, array : Array<DayNoteModel>?) : FragmentStatePagerAdapter(fm) {
+    class ScreenSlideAdapter(fm: android.support.v4.app.FragmentManager, array: Array<DayNoteModel>?) : FragmentStatePagerAdapter(fm) {
 
-        var arrayNotes : Array<DayNoteModel>? = null
-        var listener : View.OnClickListener? = null
+        var arrayNotes: Array<DayNoteModel>? = null
+        var listener: View.OnClickListener? = null
 
         init {
             arrayNotes = array
@@ -249,9 +281,12 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItem(position: Int): android.support.v4.app.Fragment {
             if (position == arrayNotes?.size) {
-              return  SlideEventsFragment().formInstance(DayNoteModel(day = 2333333))
+                return SlideEventsFragment().formInstance(DayNoteModel(day = 2333333), 0)
             }
-            return SlideEventsFragment().formInstance(arrayNotes?.get(position))
+            if (position == arrayNotes?.size?.minus(1)) {
+                return SlideEventsFragment().formInstance(arrayNotes?.get(position), 1)
+            }
+            return SlideEventsFragment().formInstance(arrayNotes?.get(position), 2)
         }
 
         override fun getCount(): Int {

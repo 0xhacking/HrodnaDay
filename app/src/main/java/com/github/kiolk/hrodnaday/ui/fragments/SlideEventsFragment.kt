@@ -28,12 +28,14 @@ class SlideEventsFragment: Fragment() {
 
     var day : Long? = 0
     lateinit var dayNote : DayNoteModel
+     var dayType : Int? = 1
 
-    fun formInstance( dayNote : DayNoteModel?) : SlideEventsFragment{
+    fun formInstance( dayNote : DayNoteModel?, typeofDay : Int?) : SlideEventsFragment{
         val day : SlideEventsFragment = SlideEventsFragment()
         val bundle : Bundle = Bundle()
         dayNote?.day?.let { bundle.putLong("day", it) }
         bundle.putSerializable("note", dayNote)
+        typeofDay?.let { bundle.putInt("SizeOfArray", it) }
         day.arguments =bundle
         return day
     }
@@ -43,6 +45,7 @@ class SlideEventsFragment: Fragment() {
         super.onCreate(savedInstanceState)
         day = arguments?.getLong("day")
         dayNote = arguments?.getSerializable("note") as DayNoteModel
+        dayType = arguments?.getInt("SizeOfArray")
 
     }
 
@@ -54,11 +57,17 @@ class SlideEventsFragment: Fragment() {
         backToTodayView?.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                val pager : ViewPager=  view.parent as ViewPager
-                pager.currentItem = 1
+
+                pager.currentItem = pager.adapter.count.minus(2)
             }
 
         })
         setUpNoteInView( view, dayNote )
+        if(dayType == 0){
+            view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = context.resources.getString(R.string.TOMORROW)
+        } else if (dayType == 1){
+            view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = context.resources.getString(R.string.TODAY)
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)

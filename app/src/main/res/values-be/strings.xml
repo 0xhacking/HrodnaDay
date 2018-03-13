@@ -12,4 +12,8 @@
     <string name="LEAVE_MESSAGE">Are you want leave?</string>
     <string name="LEAVE">Leave</string>
     <string name="NO">No</string>
+    <string name="TOMORROW">Tomorrow</string>
+    <string name="TODAY">Today</string>
+    <string name="SEARCH">Search</string>
+    <string name="SEARCH_HINT">Search</string>
 </resources>

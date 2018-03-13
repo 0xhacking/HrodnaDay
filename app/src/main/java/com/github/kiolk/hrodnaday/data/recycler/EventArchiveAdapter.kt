@@ -7,16 +7,21 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import android.widget.TextView
 import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import kotlinx.android.synthetic.main.card_one_event_archive.view.*
 
-class EventArchiveAdapter(private val pContext: Context, private var pNotes: Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>() {
+class EventArchiveAdapter(private val pContext: Context, private var pNotes: Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>(), Filterable {
 
+    lateinit var notes : Array<DayNoteModel>
     init {
         pNotes = pNotes.filter { it.language == pContext.resources.configuration.locale.language }.toTypedArray()
+        notes = pNotes
     }
+        lateinit var notesFiltered : Array<DayNoteModel>
 
     override fun onBindViewHolder(holder: EventArchiveViewHolder?, position: Int) {
         val event = pNotes[position]
@@ -40,6 +45,34 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): EventArchiveViewHolder {
         val view = LayoutInflater.from(pContext).inflate(R.layout.card_one_event_archive, parent, false)
         return EventArchiveViewHolder(view)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val searchString = constraint?.toString()?.toLowerCase()
+                if(searchString == null || searchString.toCharArray().isEmpty()){
+                    notesFiltered = notes
+                } else {
+                    val titleFiltered = notes.filter { it.title.toLowerCase().contains(searchString) }.toTypedArray()
+                    val authorFiltered = notes.filter { it.author.toLowerCase().contains(searchString) }.toTypedArray()
+                    val collection : Array<DayNoteModel> = titleFiltered
+                    collection.plus(authorFiltered).toSet()
+//                    authorFiltered.forEach { collection. }
+
+//                    collection.all { authorFiltered.any() }
+                    notesFiltered = collection
+                }
+                val filterResults = FilterResults()
+                filterResults.values = notesFiltered
+                return filterResults
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                pNotes = results?.values as Array<DayNoteModel>
+                notifyDataSetChanged()
+            }
+        }
     }
 
     class EventArchiveViewHolder internal constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {

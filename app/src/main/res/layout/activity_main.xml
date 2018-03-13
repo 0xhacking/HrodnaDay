@@ -20,6 +20,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textColor="?attr/primaryTextColor"
             android:text="@string/HRODNA_DAY"
             style="@style/GeneralButton" />
         <TextView
@@ -27,12 +28,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textColor="?attr/primaryTextColor"
             android:text="@string/ARCHIVE"
             style="@style/GeneralButton" />
         <TextView
             android:id="@+id/about_button_text_view"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:textColor="?attr/primaryTextColor"
             android:layout_weight="1"
             android:text="@string/ABOUT"
             style="@style/GeneralButton" />

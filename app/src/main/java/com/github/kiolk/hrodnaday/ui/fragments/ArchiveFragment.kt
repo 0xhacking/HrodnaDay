@@ -3,10 +3,12 @@ package com.github.kiolk.hrodnaday.ui.fragments
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import com.github.kiolk.hrodnaday.*
 import com.github.kiolk.hrodnaday.data.recycler.ClickListener
 import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
@@ -44,5 +46,9 @@ class ArchiveFragment : Fragment(){
                     }
                 }
         ))
+    }
+
+    fun getAdapter() : RecyclerView.Adapter<*>? {
+        return view.archive_events_recycler_view.adapter
     }
 }
