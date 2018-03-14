@@ -3,6 +3,7 @@ package com.github.kiolk.hrodnaday.ui.fragments
 import android.app.Fragment
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,6 +18,11 @@ val PICTURE_URL = "PictureUrl"
 
 class OneEventFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            activity.setTheme(R.style.MyTheme_Dark)
+        }else{
+            activity.setTheme(R.style.MyTheme_Light)
+        }
         return inflater?.inflate(R.layout.fragment_one_event, null) ?: super.onCreateView(inflater, container, savedInstanceState)
     }
 

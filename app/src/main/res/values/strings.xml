@@ -14,4 +14,5 @@
     <string name="TODAY">Today</string>
     <string name="SEARCH">Search</string>
     <string name="SEARCH_HINT">Search</string>
+    <string name="DAY_NIGHT">Day/Night</string>
 </resources>

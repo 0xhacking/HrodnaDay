@@ -37,16 +37,26 @@
         <attr name="primaryTextColor" format="color"/>
         <attr name="backgroundColor" format="color"/>
         <attr name="iconPlaceHolder" format="integer"/>
+        <attr name="iconLampColor" format="color"/>
     </declare-styleable>
     
     <style name="MyTheme.Light" parent="MyTheme">
         <item name="primaryTextColor">#000000</item>
         <item name="backgroundColor">#50000000</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
+        <item name="iconLampColor">#FFFFFF</item>
     </style>
 
     <style name="MyTheme.Dark" parent="MyTheme">
         <item name="primaryTextColor">#FFFFFF</item>
         <item name="backgroundColor">#50f0f0f0</item>
+        <item name="iconLampColor">#000000</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
+    </style>
+
+    <style name="WindowAnimationTransaction">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
 </resources>

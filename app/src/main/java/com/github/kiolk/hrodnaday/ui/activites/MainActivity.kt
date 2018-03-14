@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.AppCompatDelegate
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
@@ -41,11 +42,22 @@ class MainActivity : AppCompatActivity() {
     var archive: ArchiveFragment? = null
     var oneEvent: OneEventFragment? = null
     var arrayDayEvents: Array<DayNoteModel>? = null
+    var lastViewPagerPosition: Int? = null
     lateinit var mainMenu: Menu
     lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.MyTheme_Dark)
+        } else {
+            setTheme(R.style.MyTheme_Light)
+        }
+
         super.onCreate(savedInstanceState)
+        if (intent != null) {
+            lastViewPagerPosition = intent.getIntExtra("position", 0)
+        }
         setContentView(R.layout.activity_main)
 
         DBConnector.initInstance(this)
@@ -66,19 +78,24 @@ class MainActivity : AppCompatActivity() {
                 closeFragment(archive)
                 events_view_pager.visibility = View.GONE
                 mainMenu.findItem(R.id.search_menu_item).isVisible = false
+                mainMenu.findItem(R.id.day_night_menu_item).isVisible = true
+                mainMenu.findItem(R.id.language_menu_item).isVisible = true
 
 
                 when (it) {
                     about_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
 //                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
-                        setTheme(R.style.MyTheme_Dark)
+                        mainMenu.findItem(R.id.day_night_menu_item).isVisible = false
+                        mainMenu.findItem(R.id.language_menu_item).isVisible = false
                     }
                     archive_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
 //                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                         showArchiveFragment()
                         mainMenu.findItem(R.id.search_menu_item).isVisible = true
+                        mainMenu.findItem(R.id.day_night_menu_item).isVisible = false
+                        mainMenu.findItem(R.id.language_menu_item).isVisible = false
                     }
                     day_event_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
@@ -158,21 +175,33 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.day_night_menu_item -> {
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                } else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                }
+                val position = events_view_pager.currentItem
+                restartActivity(position)
+//                closeFragment()
+//                events_view_pager.destroyDrawingCache()
+//                startDayEventViewPager()
+            }
             R.id.search_menu_item -> {
                 closeFragment(archive)
                 showArchiveFragment()
             }
             R.id.english_menu_item -> {
                 changeLocale("en")
-                restartActivity()
+                restartActivity(null)
             }
             R.id.russian_menu_item -> {
                 changeLocale("ru")
-                restartActivity()
+                restartActivity(null)
             }
             R.id.belarus_menu_item -> {
                 changeLocale("be")
-                restartActivity()
+                restartActivity(null)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -205,8 +234,13 @@ class MainActivity : AppCompatActivity() {
         baseContext.resources.updateConfiguration(configuration, baseContext.resources.displayMetrics)
     }
 
-    private fun restartActivity() {
+    private fun restartActivity(position: Int?) {
         val intent = Intent(this, MainActivity::class.java)
+
+        if (position != null) {
+            intent.putExtra("position", position)
+        }
+
         startActivity(intent)
         finish()
     }
@@ -215,7 +249,13 @@ class MainActivity : AppCompatActivity() {
         events_view_pager.visibility = View.VISIBLE
         val pageAdapter = ScreenSlideAdapter(supportFragmentManager, arrayDayEvents)
         events_view_pager.adapter = pageAdapter
-        events_view_pager.currentItem = arrayDayEvents?.size?.minus(1) ?: 0
+
+        if (lastViewPagerPosition != null && lastViewPagerPosition != 0) {
+            events_view_pager.currentItem = lastViewPagerPosition as Int
+        } else {
+            events_view_pager.currentItem = arrayDayEvents?.size?.minus(1) ?: 0
+        }
+
         events_view_pager.clipToPadding = false
         events_view_pager.setPadding(48, 0, 48, 0)
         events_view_pager.pageMargin = 30
