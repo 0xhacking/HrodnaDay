@@ -7,6 +7,11 @@
     <dimen name="MIDDLE_TEXT_SIZE">24sp</dimen>
     <dimen name="SMALL_TEXT_SIZE">16sp</dimen>
     <dimen name="NORMAL_TEXT_SIZE">20sp</dimen>
+    <dimen name="SMALL_NOTE_PADDING">4dp</dimen>
     <dimen name="FRAME_PADDING">0dp</dimen>
+    <dimen name="NEIGHBOR_FRAGMENT_PADDING">12dp</dimen>
     <dimen name="PICTURE_ELEVATION">10dp</dimen>
+    <dimen name="TOOLBAR_HEIGHT">50dp</dimen>
+    <dimen name="LINE_WIDTH">2dp</dimen>
+    <dimen name="SIZE_SMALL_ICON">15dp</dimen>
 </resources>

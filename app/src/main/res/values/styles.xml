@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -31,6 +31,10 @@
 
     <style name="MyTheme" parent="AppTheme" >
         <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="bigTitle">@dimen/TITLE_TEXT_SIZE</item>
+        <item name="smallTitle">@dimen/SMALL_TEXT_SIZE</item>
+        <item name="toolBarHeight">@dimen/TOOLBAR_HEIGHT</item>
+
     </style>
 
     <declare-styleable name="AppTheme">
@@ -38,6 +42,10 @@
         <attr name="backgroundColor" format="color"/>
         <attr name="iconPlaceHolder" format="integer"/>
         <attr name="iconLampColor" format="color"/>
+        <attr name="bigTitle" format="dimension"/>
+        <attr name="smallTitle" format="dimension"/>
+        <attr name="generalBackground" format="integer"/>
+        <attr name="toolBarHeight" format="dimension"/>
     </declare-styleable>
     
     <style name="MyTheme.Light" parent="MyTheme">
@@ -45,18 +53,27 @@
         <item name="backgroundColor">#50000000</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
         <item name="iconLampColor">#FFFFFF</item>
+        <item name="generalBackground">@drawable/ic_background</item>
     </style>
 
     <style name="MyTheme.Dark" parent="MyTheme">
         <item name="primaryTextColor">#FFFFFF</item>
         <item name="backgroundColor">#50f0f0f0</item>
         <item name="iconLampColor">#000000</item>
+        <item name="generalBackground">@drawable/textured_paper</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
     </style>
 
     <style name="WindowAnimationTransaction">
         <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="NoteLayerStyle">
+        <item name="android:paddingRight">@dimen/SMALL_NOTE_PADDING</item>
+        <item name="android:paddingEnd">@dimen/SMALL_NOTE_PADDING</item>
+        <item name="android:paddingLeft">@dimen/SMALL_NOTE_PADDING</item>
+        <item name="android:paddingStart">@dimen/SMALL_NOTE_PADDING</item>
     </style>
 
 </resources>

@@ -1,60 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/event_card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:isScrollContainer="true"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:id="@+id/event_card_view"
     android:layout_margin="@dimen/NOTE_PADDING"
-    android:background="@drawable/colorlees_background">
+    android:background="@drawable/colorlees_background"
+    android:isScrollContainer="true"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/colorlees_background">
+
         <TextView
             android:id="@+id/day_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingBottom="6dp"
             android:textColor="?attr/primaryTextColor"
-            android:textSize="@dimen/TITLE_TEXT_SIZE"
+            android:textSize="@dimen/SMALL_TEXT_SIZE"
             tools:text="1 March 2018" />
+
         <TextView
             android:id="@+id/back_to_today_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/primaryTextColor"
-            android:background="@android:drawable/ic_menu_set_as"
-            android:layout_alignParentRight="true"
-            android:clickable="true"
-            android:visibility="gone"
+            android:layout_width="?attr/smallTitle"
+            android:layout_height="?attr/smallTitle"
+            android:layout_alignBottom="@+id/day_one_event_card_text_view"
             android:layout_alignParentEnd="true"
-            android:focusable="true" />
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/NEIGHBOR_FRAGMENT_PADDING"
+            android:layout_marginRight="@dimen/NEIGHBOR_FRAGMENT_PADDING"
+            android:background="@drawable/ic_arrow"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="?attr/primaryTextColor"
+            android:visibility="gone" />
+
         <RelativeLayout
             android:id="@+id/frame_card_relative_layout"
-            android:layout_below="@+id/day_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/day_one_event_card_text_view"
             android:background="@drawable/frame_background">
 
 
+            <RelativeLayout
+                android:id="@+id/picture_layer_relative_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:id="@+id/picture_layer_relative_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/picture_one_event_card_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:clickable="true"
+                    android:elevation="@dimen/PICTURE_ELEVATION"
+                    android:focusable="true"
+                    android:scaleType="fitCenter" />
 
-            <ImageView
-                android:id="@+id/picture_one_event_card_image_view"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:scaleType="fitCenter"
-                android:clickable="true"
-                android:focusable="true"
-                android:elevation="@dimen/PICTURE_ELEVATION"
-               />
-
-        </RelativeLayout>
+            </RelativeLayout>
 
         </RelativeLayout>
 
@@ -63,34 +69,77 @@
             android:id="@+id/title_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/TITLE_TEXT_SIZE"
+            android:layout_below="@+id/frame_card_relative_layout"
             android:clickable="true"
             android:focusable="true"
             android:textColor="?attr/primaryTextColor"
-            android:layout_below="@+id/frame_card_relative_layout"
-            tools:text="Title"/>
+            android:textSize="@dimen/TITLE_TEXT_SIZE"
+            tools:text="Title" />
+
         <TextView
             android:id="@+id/author_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/MIDDLE_TEXT_SIZE"
-            tools:text="Zhora Bukovski"
+            android:layout_below="@+id/title_one_event_card_text_view"
             android:textColor="?attr/primaryTextColor"
-            android:layout_below="@+id/title_one_event_card_text_view"/>
+            android:textSize="@dimen/MIDDLE_TEXT_SIZE"
+            tools:text="Zhora Bukovski" />
+
         <TextView
             android:id="@+id/creating_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/SMALL_TEXT_SIZE"
-            tools:text="XX century"
+            android:layout_below="@+id/author_one_event_card_text_view"
             android:textColor="?attr/primaryTextColor"
-            android:layout_below="@+id/author_one_event_card_text_view"/>
+            android:textSize="@dimen/SMALL_TEXT_SIZE"
+            tools:text="XX century" />
+
         <TextView
             android:id="@+id/description_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/NORMAL_TEXT_SIZE"
+            android:layout_below="@+id/creating_one_event_card_text_view"
             android:textColor="?attr/primaryTextColor"
-            android:layout_below="@+id/creating_one_event_card_text_view"/>
+            android:textSize="@dimen/NORMAL_TEXT_SIZE" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            style="@style/NoteLayerStyle"
+            android:layout_below="@id/description_one_event_card_text_view">
+            <TextView
+                android:id="@+id/line_info_card_view"
+                android:layout_width="@dimen/LINE_WIDTH"
+                android:layout_height="wrap_content"
+                android:background="?attr/primaryTextColor"
+                android:paddingRight="@dimen/SMALL_NOTE_PADDING"
+                android:paddingEnd="@dimen/SMALL_NOTE_PADDING" />
+            <ImageView
+                android:id="@+id/geometry_icon_image_view"
+                android:layout_width="@dimen/SIZE_SMALL_ICON"
+                android:layout_height="@dimen/SIZE_SMALL_ICON"
+                android:background="@drawable/ic_geometry"
+                android:padding="@dimen/SMALL_NOTE_PADDING"
+                android:layout_toRightOf="@+id/line_info_card_view"
+                android:layout_alignTop="@+id/line_info_card_view"/>
+          <TextView
+                android:id="@+id/size_one_card_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+              android:padding="@dimen/SMALL_NOTE_PADDING"
+              android:layout_toRightOf="@+id/geometry_icon_image_view"/>
+            <ImageView
+                android:id="@+id/material_icon_image_view"
+                android:layout_width="@dimen/SIZE_SMALL_ICON"
+                android:layout_height="@dimen/SIZE_SMALL_ICON"
+                android:background="@drawable/ic_painter_palette"
+                android:padding="@dimen/SMALL_NOTE_PADDING"
+                android:layout_below="@+id/geometry_icon_image_view"/>
+            <TextView
+                android:id="@+id/material_one_card_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/material_icon_image_view"
+                android:layout_alignBottom="@+id/material_icon_image_view"/>
+        </RelativeLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -6,14 +6,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.github.kiolk.hrodnaday.ui.MainActivity"
-    android:background="@drawable/textured_paper">
+    android:background="?attr/generalBackground">
 
-    <include layout="@layout/layout_leave_message"/>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/main_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/TOOLBAR_HEIGHT"
+        android:background="@color/cardview_dark_background">
+
+    </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:id="@+id/button_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/BUTTOM_HEIGHT"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_below="@+id/main_tool_bar">
 
         <TextView
             android:id="@+id/day_event_button_text_view"
@@ -43,6 +52,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_below="@+id/main_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="@color/UNDER_BUTTON_LINE"/>

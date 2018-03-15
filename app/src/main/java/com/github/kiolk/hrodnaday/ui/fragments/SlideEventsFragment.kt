@@ -51,7 +51,7 @@ class SlideEventsFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater?.inflate(R.layout.fragment_screen_events, null) ?: super.onCreateView(inflater, container, savedInstanceState)
-        view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = day.toString()
+        val title = view?.findViewById<TextView>(R.id.day_one_event_card_text_view)
         val backToTodayView = view?.findViewById<TextView>(R.id.back_to_today_text_view)
         backToTodayView?.visibility = View.VISIBLE
         backToTodayView?.setOnClickListener(object : View.OnClickListener {
@@ -64,9 +64,11 @@ class SlideEventsFragment: Fragment() {
         })
         setUpNoteInView( view, dayNote )
         if(dayType == 0){
-            view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = context.resources.getString(R.string.TOMORROW)
+           backToTodayView?.visibility = View.INVISIBLE
+            title?.text = context.resources.getString(R.string.TOMORROW)
         } else if (dayType == 1){
-            view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = context.resources.getString(R.string.TODAY)
+            title?.text = context.resources.getString(R.string.TODAY)
+            backToTodayView?.visibility = View.INVISIBLE
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -84,6 +86,9 @@ fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
     view?.findViewById<TextView>(R.id.author_one_event_card_text_view)?.text = dayNote.author
     view?.findViewById<TextView>(R.id.creating_one_event_card_text_view)?.text = dayNote.creating
     view?.findViewById<TextView>(R.id.description_one_event_card_text_view)?.text = dayNote.description
+    view?.findViewById<TextView>(R.id.size_one_card_text_view)?.text = dayNote.size
+    view?.findViewById<TextView>(R.id.material_one_card_text_view)?.text = dayNote.materials
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
         view?.findViewById<CardView>(R.id.event_card_view)?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)

@@ -7,7 +7,6 @@
     tools:context="com.github.kiolk.hrodnaday.PictureActivity"
     android:background="@android:color/black"
     >
-
     <WebView
         android:id="@+id/picture_web_view"
         android:layout_width="match_parent"
@@ -16,5 +15,15 @@
         android:scrollbars="none">
 
     </WebView>
+    <ProgressBar
+        android:id="@+id/picture_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:indeterminateDrawable="@drawable/dear_progress_bar"
+        android:indeterminateOnly="true"
+        android:visibility="visible"/>
+
 
 </RelativeLayout>

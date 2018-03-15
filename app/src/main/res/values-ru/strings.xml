@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">День Гродно</string>
+    <string name="HRODNA_DAY">День Гродно</string>
+    <string name="ARCHIVE">Архив</string>
+    <string name="ABOUT">Про проект</string>
+    <string name="LANGUAGE">Язык</string>
+    <string name="ENGLISH">English</string>
+    <string name="RUSSIAN">Русский</string>
+    <string name="BELARUSIAN">Беларуская</string>
+    <string name="M03">Сакавіка</string>
+    <string name="LEAVE_MESSAGE">Выйти из программы?</string>
+    <string name="LEAVE">Да</string>
+    <string name="NO">Нет</string>
+    <string name="TOMORROW">Завтра</string>
+    <string name="TODAY">Сегодня</string>
+    <string name="SEARCH">Поиск</string>
+    <string name="SEARCH_HINT">Поиск</string>
+    <string name="DAY_NIGHT">День/Ночь</string>
+</resources>

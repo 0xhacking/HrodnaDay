@@ -5,9 +5,9 @@
     <string name="ABOUT">ABOUT</string>
     <string name="LANGUAGE">Language</string>
     <string name="ENGLISH">English</string>
-    <string name="RUSSIAN">Russian</string>
-    <string name="BELARUSIAN">Bealrusian</string>
-    <string name="LEAVE_MESSAGE">Are you want leave?</string>
+    <string name="RUSSIAN">Русский</string>
+    <string name="BELARUSIAN">Беларуская</string>
+    <string name="LEAVE_MESSAGE">Do you want leave?</string>
     <string name="LEAVE">Leave</string>
     <string name="NO">No</string>
     <string name="TOMORROW">Tomorrow</string>

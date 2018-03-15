@@ -111,6 +111,10 @@ class MainActivity : AppCompatActivity() {
         archive_button_text_view.setOnClickListener(listener)
         day_event_button_text_view.setOnClickListener(listener)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
+        }
+
         if (checkConnection(this)) {
             SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
                     object : ResultCallback<ResponseModel> {
@@ -124,9 +128,6 @@ class MainActivity : AppCompatActivity() {
                             Log.d("MyLogs", locale)
                             arrayDayEvents = arrayEvents?.filter { it.day < currentDay }?.toTypedArray()
                             arrayDayEvents = arrayDayEvents?.filter { it.language.equals(locale) }?.toTypedArray()
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                                day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
-                            }
                             startDayEventViewPager()
                         }
 
@@ -139,6 +140,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun initToolBar() {
         val actionBar = supportActionBar
+        main_tool_bar.navigationIcon = resources.getDrawable(R.drawable.ic_coat_of_arms_of_hrodna)
+//        actionBar?.setLogo(resources.getDrawable(R.drawable.ic_coat_of_arms_of_hrodna))
+        setSupportActionBar(main_tool_bar)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
