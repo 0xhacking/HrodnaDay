@@ -101,45 +101,60 @@
             android:layout_below="@+id/creating_one_event_card_text_view"
             android:textColor="?attr/primaryTextColor"
             android:textSize="@dimen/NORMAL_TEXT_SIZE" />
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             style="@style/NoteLayerStyle"
+            android:orientation="horizontal"
             android:layout_below="@id/description_one_event_card_text_view">
-            <TextView
-                android:id="@+id/line_info_card_view"
+            <LinearLayout
                 android:layout_width="@dimen/LINE_WIDTH"
-                android:layout_height="wrap_content"
-                android:background="?attr/primaryTextColor"
-                android:paddingRight="@dimen/SMALL_NOTE_PADDING"
-                android:paddingEnd="@dimen/SMALL_NOTE_PADDING" />
-            <ImageView
-                android:id="@+id/geometry_icon_image_view"
-                android:layout_width="@dimen/SIZE_SMALL_ICON"
-                android:layout_height="@dimen/SIZE_SMALL_ICON"
-                android:background="@drawable/ic_geometry"
+                android:layout_height="match_parent"
                 android:padding="@dimen/SMALL_NOTE_PADDING"
-                android:layout_toRightOf="@+id/line_info_card_view"
-                android:layout_alignTop="@+id/line_info_card_view"/>
-          <TextView
-                android:id="@+id/size_one_card_text_view"
-                android:layout_width="wrap_content"
+                android:background="?attr/primaryTextColor">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-              android:padding="@dimen/SMALL_NOTE_PADDING"
-              android:layout_toRightOf="@+id/geometry_icon_image_view"/>
-            <ImageView
-                android:id="@+id/material_icon_image_view"
-                android:layout_width="@dimen/SIZE_SMALL_ICON"
-                android:layout_height="@dimen/SIZE_SMALL_ICON"
-                android:background="@drawable/ic_painter_palette"
-                android:padding="@dimen/SMALL_NOTE_PADDING"
-                android:layout_below="@+id/geometry_icon_image_view"/>
-            <TextView
-                android:id="@+id/material_one_card_text_view"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/material_icon_image_view"
-                android:layout_alignBottom="@+id/material_icon_image_view"/>
-        </RelativeLayout>
+                android:orientation="vertical"
+                android:padding="@dimen/SMALL_NOTE_PADDING">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/geometry_icon_image_view"
+                        android:layout_width="@dimen/SIZE_SMALL_ICON"
+                        android:layout_height="@dimen/SIZE_SMALL_ICON"
+                        android:background="@drawable/ic_geometry"
+                        android:padding="@dimen/SMALL_NOTE_PADDING"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/size_one_card_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/SMALL_NOTE_PADDING"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/material_icon_image_view"
+                        android:layout_width="@dimen/SIZE_SMALL_ICON"
+                        android:layout_height="@dimen/SIZE_SMALL_ICON"
+                        android:background="@drawable/ic_painter_palette"
+                        android:padding="@dimen/SMALL_NOTE_PADDING"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        android:id="@+id/material_one_card_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/SMALL_NOTE_PADDING"/>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
     </RelativeLayout>
 </android.support.v7.widget.CardView>
