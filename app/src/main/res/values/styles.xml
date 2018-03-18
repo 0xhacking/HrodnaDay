@@ -76,4 +76,11 @@
         <item name="android:paddingStart">@dimen/SMALL_NOTE_PADDING</item>
     </style>
 
+    <style name="InformationBlockStyle">
+        <item name="android:textSize">@dimen/SMALL_TEXT_SIZE</item>
+        <item name="android:textColor">?attr/primaryTextColor</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">@dimen/SMALL_NOTE_PADDING</item>
+    </style>
+
 </resources>

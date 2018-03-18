@@ -1,13 +1,17 @@
 package layout
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.CardView
+import android.text.SpannableString
+import android.text.style.UnderlineSpan
 //import android.support.v4.content.ContextCompat.startActivity
 import android.view.LayoutInflater
 import android.view.View
@@ -88,6 +92,11 @@ fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
     view?.findViewById<TextView>(R.id.description_one_event_card_text_view)?.text = dayNote.description
     view?.findViewById<TextView>(R.id.size_one_card_text_view)?.text = dayNote.size
     view?.findViewById<TextView>(R.id.material_one_card_text_view)?.text = dayNote.materials
+    val spannableContent = SpannableString(dayNote.museum)
+    spannableContent.setSpan(UnderlineSpan(), 0, spannableContent.length, 0)
+    view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.text = spannableContent
+    view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.setOnClickListener { openUrl(dayNote.museumUrl, view.context) }
+    view?.findViewById<TextView>(R.id.author_article_one_card_text_view)?.text = dayNote.articleAuthor
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
         view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
@@ -102,4 +111,9 @@ fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
         }
     })
     view?.context?.let { setupPicture(0, view.findViewById(R.id.picture_one_event_card_image_view), array, it) }
+}
+
+fun openUrl( url : String, context : Context){
+    val browserIntent : Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    startActivity(context, browserIntent, null)
 }
