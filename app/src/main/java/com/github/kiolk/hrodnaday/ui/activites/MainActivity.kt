@@ -16,7 +16,9 @@ import android.view.MenuItem
 import android.view.View
 import android.support.v7.widget.SearchView
 import com.github.kiolk.hrodnaday.*
+import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.data.database.DBConnector
+import com.github.kiolk.hrodnaday.data.database.DBOperations
 import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
 import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFERNCES
@@ -24,6 +26,7 @@ import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFIX
 import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
 import com.github.kiolk.hrodnaday.ui.fragments.LeavingMessageFragment
 import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
+import com.google.firebase.database.*
 import kiolk.com.github.pen.Pen
 import kiolk.com.github.pen.utils.PenConstantsUtil.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,6 +49,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var mainMenu: Menu
     lateinit var searchView: SearchView
 
+    lateinit var mFirebaseDatabase : FirebaseDatabase
+    lateinit var mDatabaseReference : DatabaseReference
+    var mEventListener : ChildEventListener? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
@@ -55,6 +62,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         super.onCreate(savedInstanceState)
+
+        mFirebaseDatabase = FirebaseDatabase.getInstance()
+        mDatabaseReference = mFirebaseDatabase.reference.child("days")
+
         if (intent != null) {
             lastViewPagerPosition = intent.getIntExtra("position", 0)
         }
@@ -80,6 +91,7 @@ class MainActivity : AppCompatActivity() {
                 mainMenu.findItem(R.id.search_menu_item).isVisible = false
                 mainMenu.findItem(R.id.day_night_menu_item).isVisible = true
                 mainMenu.findItem(R.id.language_menu_item).isVisible = true
+                mainMenu.findItem(R.id.advance_menu_item).isVisible = true
 
 
                 when (it) {
@@ -88,6 +100,7 @@ class MainActivity : AppCompatActivity() {
 //                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
                         mainMenu.findItem(R.id.day_night_menu_item).isVisible = false
                         mainMenu.findItem(R.id.language_menu_item).isVisible = false
+                        mainMenu.findItem(R.id.advance_menu_item).isVisible = true
                     }
                     archive_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
@@ -136,6 +149,51 @@ class MainActivity : AppCompatActivity() {
                     }
             ))
         }
+
+        attachEventListener()
+    }
+
+    private fun attachEventListener() {
+        mEventListener = object : ChildEventListener{
+            override fun onCancelled(p0: DatabaseError?) {
+
+            }
+
+            override fun onChildMoved(p0: DataSnapshot?, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildChanged(p0: DataSnapshot?, p1: String?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
+                var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
+                dayNote?.let { DBOperations().insert(it) }
+            }
+
+            override fun onChildRemoved(p0: DataSnapshot?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        }
+        mDatabaseReference.addChildEventListener(mEventListener)
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        if (mEventListener != null){
+            mDatabaseReference.removeEventListener(mEventListener)
+            mEventListener == null
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mEventListener == null){
+            attachEventListener()
+        }
+
     }
 
     private fun initToolBar() {
@@ -206,6 +264,10 @@ class MainActivity : AppCompatActivity() {
             R.id.belarus_menu_item -> {
                 changeLocale("be")
                 restartActivity(null)
+            }
+            R.id.advance_menu_item -> {
+                val intent : Intent = Intent(this, AddNoteActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

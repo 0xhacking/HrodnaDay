@@ -81,7 +81,7 @@ class DBOperations {
         val readableDatabase = helper.readableDatabase
         try {
             readableDatabase.beginTransaction()
-            readableDatabase.insert(TABLE_NAME, null, contentValue )
+            readableDatabase.replace(TABLE_NAME, null, contentValue )
             readableDatabase.setTransactionSuccessful()
         } catch (e: Exception) {
             e.printStackTrace()

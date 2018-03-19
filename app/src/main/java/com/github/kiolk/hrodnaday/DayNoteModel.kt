@@ -3,7 +3,7 @@ package com.github.kiolk.hrodnaday
 import java.io.Serializable
 
 data class DayNoteModel(var day : Long = 0,
-           var pictureUrl : String = "Default url",
+           var pictureUrl : String = "http://www.istpravda.ru/upload/medialibrary/579/5792a059eabdca6a09df29f5f98bcafa.jpg",
            var title : String = "title",
            var author : String = "author",
            var creating : String = "creating date",
