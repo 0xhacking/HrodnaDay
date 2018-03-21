@@ -14,4 +14,9 @@
         android:id="@+id/send_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/send_notification_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SEND_NOTIFICATION"/>
 </LinearLayout>

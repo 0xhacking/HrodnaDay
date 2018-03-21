@@ -18,13 +18,19 @@ class AddNoteActivity : AppCompatActivity() {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mFirebaseDatabase.reference.child("days")
-
-        send_button.setOnClickListener(object : View.OnClickListener{
-            override fun onClick(v: View?) {
-                val day : Long = date_editor_text_view.text.toString().toLong()
-                val oneNewNote : DayNoteModel = DayNoteModel(day)
-                mDatabaseReference.push().setValue(oneNewNote)
+        val listener : View.OnClickListener = View.OnClickListener { v ->
+            when (v?.id) {
+                R.id.send_button -> {
+                    val day : Long = date_editor_text_view.text.toString().toLong()
+                    val oneNewNote: DayNoteModel = DayNoteModel(day)
+                    mDatabaseReference.push().setValue(oneNewNote)
+                }
+                R.id.send_notification_button -> {
+                    SendRequestAsyncTask().execute(RequestPostToFCM("https://gcm-http.googleapis.com/gcm/send"))
+                }
             }
-        })
+        }
+        send_button.setOnClickListener(listener)
+        send_notification_button.setOnClickListener(listener)
     }
 }

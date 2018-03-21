@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 mainMenu.findItem(R.id.search_menu_item).isVisible = false
                 mainMenu.findItem(R.id.day_night_menu_item).isVisible = true
                 mainMenu.findItem(R.id.language_menu_item).isVisible = true
-                mainMenu.findItem(R.id.advance_menu_item).isVisible = true
+                mainMenu.findItem(R.id.advance_menu_item).isVisible = false
 
 
                 when (it) {

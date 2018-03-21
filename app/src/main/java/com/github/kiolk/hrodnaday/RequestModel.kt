@@ -32,3 +32,19 @@ class RequestModelFromDB(private val callback: ResultCallback<ResponseModel>):  
         return ResponseModel(DBOperations().getAll().toTypedArray(), null, callback)
     }
 }
+
+class RequestPostToFCM(private  val  url : String) : SendRequest{
+    override fun perform(): ResponseModel {
+        val httpClient = HttpClient()
+        httpClient.post(url)
+        return ResponseModel(null, null, object : ResultCallback<ResponseModel>{
+            override fun onSuccess(param: ResponseModel) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+
+            override fun onError(exception: Exception) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            }
+        })
+    }
+}

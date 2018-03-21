@@ -16,4 +16,5 @@
     <string name="SEARCH_HINT">Search</string>
     <string name="DAY_NIGHT">Day/Night</string>
     <string name="ADVANCE_MENU_ITEM">Advance</string>
+    <string name="SEND_NOTIFICATION">Send notification</string>
 </resources>
