@@ -27,6 +27,7 @@ import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
 import com.github.kiolk.hrodnaday.ui.fragments.LeavingMessageFragment
 import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import kiolk.com.github.pen.Pen
 import kiolk.com.github.pen.utils.PenConstantsUtil.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity() {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mFirebaseDatabase.reference.child("days")
+        FirebaseMessaging.getInstance().subscribeToTopic("All")
 
         if (intent != null) {
             lastViewPagerPosition = intent.getIntExtra("position", 0)
@@ -402,8 +404,7 @@ class MainActivity : AppCompatActivity() {
         override fun getItemPosition(`object`: Any?): Int {
             return super.getItemPosition(`object`)
         }
-
-
     }
+
 
 }
