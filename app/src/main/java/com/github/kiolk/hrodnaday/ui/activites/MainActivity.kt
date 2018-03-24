@@ -2,14 +2,12 @@ package com.github.kiolk.hrodnaday.ui
 
 import android.app.*
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -23,6 +21,7 @@ import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
 import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFERNCES
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFIX
+import com.github.kiolk.hrodnaday.ui.activites.AddNoteActivity
 import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
 import com.github.kiolk.hrodnaday.ui.fragments.LeavingMessageFragment
 import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
@@ -47,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     var oneEvent: OneEventFragment? = null
     var arrayDayEvents: Array<DayNoteModel>? = null
     var lastViewPagerPosition: Int? = null
+    var mCurrentDay : Long = 0
     lateinit var mainMenu: Menu
     lateinit var searchView: SearchView
 
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             setTheme(R.style.MyTheme_Light)
         }
-
+        loadData()
         super.onCreate(savedInstanceState)
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
         mFragmentManager = fragmentManager
         archive = ArchiveFragment()
         oneEvent = OneEventFragment()
-
+        mCurrentDay = getCurrentDay()
 
         val listener = View.OnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -130,19 +130,23 @@ class MainActivity : AppCompatActivity() {
             day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
         }
 
+        setUpData()
+
+        attachEventListener()
+    }
+
+    private fun setUpData() {
         if (checkConnection(this)) {
-            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
+    //            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
+            SendRequestAsyncTask().execute(RequestModelFromDB(
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {
                             val arrayEvents = param.objects
                             arrayEvents?.sortBy { it.day }
-                            val note = arrayEvents?.maxBy { it.day }
-                            val currentTimeMillis = System.currentTimeMillis()
-                            val currentDay = currentTimeMillis - currentTimeMillis.rem(86400000) + 86400000
                             val locale: String = baseContext.resources.configuration.locale.language
                             Log.d("MyLogs", locale)
-                            arrayDayEvents = arrayEvents?.filter { it.day < currentDay }?.toTypedArray()
-                            arrayDayEvents = arrayDayEvents?.filter { it.language.equals(locale) }?.toTypedArray()
+                            arrayDayEvents = arrayEvents?.filter { it.day < getCurrentDay() }?.toTypedArray()
+                            arrayDayEvents = arrayDayEvents?.filter { it.language.equals(locale) }?.sortedBy { it.day }?.toTypedArray()
                             startDayEventViewPager()
                         }
 
@@ -151,8 +155,6 @@ class MainActivity : AppCompatActivity() {
                     }
             ))
         }
-
-        attachEventListener()
     }
 
     private fun attachEventListener() {
@@ -172,6 +174,7 @@ class MainActivity : AppCompatActivity() {
             override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
                 var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
                 dayNote?.let { DBOperations().insert(it) }
+                Log.d("MyLogs", "day = ${dayNote?.day}")
             }
 
             override fun onChildRemoved(p0: DataSnapshot?) {
@@ -194,6 +197,10 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (mEventListener == null){
             attachEventListener()
+        }
+        if(mCurrentDay != getCurrentDay()){
+            restartActivity(events_view_pager.currentItem)
+            mCurrentDay = getCurrentDay()
         }
 
     }
@@ -290,7 +297,9 @@ class MainActivity : AppCompatActivity() {
     fun loadData() {
         val preferences = getSharedPreferences(LANGUAGE_PREFERNCES, Activity.MODE_PRIVATE)
         val lang = preferences.getString(LANGUAGE_PREFIX, "en")
-        changeLocale(lang)
+        if(lang != resources.configuration.locale.language) {
+            changeLocale(lang)
+        }
     }
 
     private fun changeLocale(lang: String?) {
@@ -405,6 +414,5 @@ class MainActivity : AppCompatActivity() {
             return super.getItemPosition(`object`)
         }
     }
-
 
 }

@@ -1,7 +1,6 @@
 package layout
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -19,14 +18,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.github.kiolk.hrodnaday.DayNoteModel
-import com.github.kiolk.hrodnaday.PictureActivity
+import com.github.kiolk.hrodnaday.ui.activites.PictureActivity
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.convertEpochTime
-import com.github.kiolk.hrodnaday.data.recycler.ClickListener
 import com.github.kiolk.hrodnaday.data.recycler.setupPicture
 import com.github.kiolk.hrodnaday.ui.fragments.PICTURE_URL
-import kiolk.com.github.pen.Pen
-import org.w3c.dom.Text
 
 class SlideEventsFragment: Fragment() {
 

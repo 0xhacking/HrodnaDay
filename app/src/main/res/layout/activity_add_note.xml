@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.github.kiolk.hrodnaday.AddNoteActivity">
+    tools:context="com.github.kiolk.hrodnaday.ui.activites.AddNoteActivity">
     <EditText
         android:id="@+id/date_editor_text_view"
         android:layout_width="match_parent"

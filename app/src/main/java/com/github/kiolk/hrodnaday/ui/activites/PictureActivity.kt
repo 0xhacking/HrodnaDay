@@ -1,8 +1,9 @@
-package com.github.kiolk.hrodnaday
+package com.github.kiolk.hrodnaday.ui.activites
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.ui.fragments.PICTURE_URL
 import kiolk.com.github.pen.utils.MD5Util
 import kotlinx.android.synthetic.main.activity_picture.*

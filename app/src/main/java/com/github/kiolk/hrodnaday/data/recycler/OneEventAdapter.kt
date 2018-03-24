@@ -3,18 +3,22 @@ package com.github.kiolk.hrodnaday.data.recycler
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.R
+import com.github.kiolk.hrodnaday.convertEpochTime
 import kiolk.com.github.pen.GetBitmapCallback
 import kiolk.com.github.pen.Pen
 import kotlinx.android.synthetic.main.card_one_event.view.*
+import layout.setUpNoteInView
 
 interface PictureClickListener{
     fun onPictureClick(pictureUrl : String)
@@ -29,7 +33,7 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
 
     override fun onBindViewHolder(holder: OneEventViewHolder?, position: Int) {
         holder?.title?.text = arrayEvents[position].title
-        holder?.day?.text = arrayEvents[position].day.toString()
+        holder?.day?.text = convertEpochTime(arrayEvents[position].day, context)
         setupPicture(position, holder?.picture, arrayEvents, context)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             holder?.itemView?.background = context.resources.getDrawable(R.drawable.colorlees_background)
@@ -40,6 +44,8 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
         holder?.description?.text = arrayEvents[position].description
         holder?.pictureUrl = arrayEvents[position].pictureUrl
         holder?.pictureClickListener = listener
+        holder?.mainLayout?.setPadding(8, 4 , 8, 4)
+        setUpNoteInView(holder?.itemView, arrayEvents[position])
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): OneEventViewHolder {
@@ -56,6 +62,7 @@ class OneEventAdapter(val context : Context, val arrayEvents : Array<DayNoteMode
         var author : TextView = itemView.author_one_event_card_text_view
         var creating : TextView = itemView.creating_one_event_card_text_view
         var description : TextView = itemView.description_one_event_card_text_view
+        var mainLayout : RelativeLayout = itemView.one_event_card_relative_layout
 
 
         init {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.github.kiolk.hrodnaday.PictureActivity"
+    tools:context="com.github.kiolk.hrodnaday.ui.activites.PictureActivity"
     android:background="@android:color/black"
     >
     <WebView
@@ -23,7 +23,5 @@
         android:layout_centerVertical="true"
         android:indeterminateDrawable="@drawable/dear_progress_bar"
         android:indeterminateOnly="true"
-        android:visibility="visible"/>
-
-
+        android:visibility="invisible"/>
 </RelativeLayout>

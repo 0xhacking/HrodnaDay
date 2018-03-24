@@ -1,8 +1,12 @@
-package com.github.kiolk.hrodnaday
+package com.github.kiolk.hrodnaday.ui.activites
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.R
+import com.github.kiolk.hrodnaday.RequestPostToFCM
+import com.github.kiolk.hrodnaday.SendRequestAsyncTask
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_add_note.*

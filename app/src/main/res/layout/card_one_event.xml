@@ -10,9 +10,10 @@
     android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/one_event_card_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/colorlees_background">
+        android:background="?attr/generalBackground">
 
         <TextView
             android:id="@+id/day_one_event_card_text_view"

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.github.kiolk.hrodnaday.*
 import com.github.kiolk.hrodnaday.data.recycler.OneEventAdapter
 import com.github.kiolk.hrodnaday.data.recycler.PictureClickListener
+import com.github.kiolk.hrodnaday.ui.activites.PictureActivity
 import kotlinx.android.synthetic.main.fragment_one_event.view.*
 
 val PICTURE_URL = "PictureUrl"

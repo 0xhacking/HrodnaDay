@@ -18,3 +18,8 @@ fun convertEpochTime(date : Long, context : Context?) : String {
 
     return formatter.format(day)
 }
+
+fun getCurrentDay() : Long{
+    val currentTimeMillis = System.currentTimeMillis()
+    return currentTimeMillis - currentTimeMillis.rem(86400000) + 86400000
+}
