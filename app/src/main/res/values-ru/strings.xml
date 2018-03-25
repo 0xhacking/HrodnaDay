@@ -17,4 +17,6 @@
     <string name="SEARCH">Поиск</string>
     <string name="SEARCH_HINT">Поиск</string>
     <string name="DAY_NIGHT">День/Ночь</string>
+    <string name="COME_BACK_TOMORROW">Возвращайтесь завтра за своим кусочком истории!</string>
+    <string name="HRODNA_DAY_TEAM">Команда HrodnaDay</string>
 </resources>

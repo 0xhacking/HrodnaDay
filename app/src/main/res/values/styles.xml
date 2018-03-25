@@ -30,7 +30,6 @@
     </style>
 
     <style name="MyTheme" parent="AppTheme" >
-        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="bigTitle">@dimen/TITLE_TEXT_SIZE</item>
         <item name="smallTitle">@dimen/SMALL_TEXT_SIZE</item>
         <item name="toolBarHeight">@dimen/TOOLBAR_HEIGHT</item>
@@ -58,7 +57,7 @@
 
     <style name="MyTheme.Dark" parent="MyTheme">
         <item name="primaryTextColor">#FFFFFF</item>
-        <item name="backgroundColor">#50f0f0f0</item>
+        <item name="backgroundColor">#50f7f7f7</item>
         <item name="iconLampColor">#000000</item>
         <item name="generalBackground">@drawable/textured_paper</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
@@ -81,6 +80,13 @@
         <item name="android:textColor">?attr/primaryTextColor</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:padding">@dimen/SMALL_NOTE_PADDING</item>
+    </style>
+
+    <style name="OneNoteDescriptionStyle">
+        <item name="android:paddingLeft">@dimen/ONE_NOTE_SIDES_PADDING</item>
+        <item name="android:paddingEnd">@dimen/ONE_NOTE_SIDES_PADDING</item>
+        <item name="android:paddingRight">@dimen/ONE_NOTE_SIDES_PADDING</item>
+        <item name="android:paddingStart">@dimen/ONE_NOTE_SIDES_PADDING</item>
     </style>
 
 </resources>

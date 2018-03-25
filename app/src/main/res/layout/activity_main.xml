@@ -80,6 +80,7 @@
         android:id="@+id/full_screen_frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="?attr/generalBackground">
     </FrameLayout>
 </RelativeLayout>

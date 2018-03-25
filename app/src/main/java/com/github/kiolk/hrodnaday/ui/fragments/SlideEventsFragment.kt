@@ -16,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.ui.activites.PictureActivity
@@ -23,6 +24,7 @@ import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.convertEpochTime
 import com.github.kiolk.hrodnaday.data.recycler.setupPicture
 import com.github.kiolk.hrodnaday.ui.fragments.PICTURE_URL
+import kiolk.com.github.pen.Pen
 
 class SlideEventsFragment: Fragment() {
 
@@ -62,19 +64,32 @@ class SlideEventsFragment: Fragment() {
             }
 
         })
-        setUpNoteInView( view, dayNote )
-        if(dayType == 0){
-           backToTodayView?.visibility = View.INVISIBLE
-            title?.text = context.resources.getString(R.string.TOMORROW)
-        } else if (dayType == 1){
-            title?.text = context.resources.getString(R.string.TODAY)
-            backToTodayView?.visibility = View.INVISIBLE
-        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
         }
         view?.isScrollContainer = true
+
+        if(dayType == 0){
+           backToTodayView?.visibility = View.INVISIBLE
+            title?.text = context.resources.getString(R.string.TOMORROW)
+            view?.findViewById<TextView>(R.id.title_one_event_card_text_view)?.text = resources.getString(R.string.COME_BACK_TOMORROW)
+            view?.findViewById<TextView>(R.id.creating_one_event_card_text_view)?.text =  resources.getString(R.string.HRODNA_DAY_TEAM)
+            Pen.getInstance().getImageFromUrl("https://img.tyt.by/n/regiony/09/1/02_geraldicheskiy_test_grodno.jpg").inputTo(view?.findViewById<ImageView>(R.id.picture_one_event_card_image_view))
+            view?.findViewById<LinearLayout>(R.id.work_description_one_event_card_text_view)?.visibility = View.GONE
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                view?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
+                view?.findViewById<CardView>(R.id.event_card_view)?.background = view?.context?.resources?.getDrawable(R.drawable.colorlees_background)
+            }
+            return view
+        } else if (dayType == 1){
+            setUpNoteInView( view, dayNote )
+            title?.text = context.resources.getString(R.string.TODAY)
+            backToTodayView?.visibility = View.INVISIBLE
+            return view
+        }
+
+        setUpNoteInView( view, dayNote )
         return view
     }
 }

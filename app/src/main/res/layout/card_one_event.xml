@@ -13,9 +13,10 @@
         android:id="@+id/one_event_card_relative_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/generalBackground">
+        android:background="@drawable/colorlees_background">
 
         <TextView
+            style="@style/OneNoteDescriptionStyle"
             android:id="@+id/day_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,9 +76,11 @@
             android:focusable="true"
             android:textColor="?attr/primaryTextColor"
             android:textSize="@dimen/TITLE_TEXT_SIZE"
-            tools:text="Title" />
+            tools:text="Title"
+            style="@style/OneNoteDescriptionStyle" />
 
         <TextView
+            style="@style/OneNoteDescriptionStyle"
             android:id="@+id/author_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -87,6 +90,7 @@
             tools:text="Zhora Bukovski" />
 
         <TextView
+            style="@style/OneNoteDescriptionStyle"
             android:id="@+id/creating_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -96,6 +100,7 @@
             tools:text="XX century" />
 
         <TextView
+            style="@style/OneNoteDescriptionStyle"
             android:id="@+id/description_one_event_card_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -104,7 +109,8 @@
             android:textSize="@dimen/NORMAL_TEXT_SIZE" />
 
         <LinearLayout
-            style="@style/NoteLayerStyle"
+            android:id="@+id/work_description_one_event_card_text_view"
+            style="@style/OneNoteDescriptionStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/NOTE_PADDING"

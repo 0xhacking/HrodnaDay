@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
 import com.github.kiolk.hrodnaday.DayNoteModel
@@ -34,7 +35,8 @@ class FcmService : FirebaseMessagingService() {
         val note : DayNoteModel = DBOperations().getAll().filter { it.day < getCurrentDay() }.last()
 
         notificationBuilder.setContentText(note.title)
-//        notificationBuilder.setColor(Color.RED)
+        notificationBuilder.setSound(Uri.parse("content://home/yauhen/StudioProjects/HrodnaDay/app/src/main/res/raw/notification.mp3"))
+        notificationBuilder.setColor(Color.BLACK)
 
         notificationBuilder.priority = NotificationCompat.PRIORITY_MAX
 

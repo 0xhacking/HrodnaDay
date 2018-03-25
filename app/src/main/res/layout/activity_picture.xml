@@ -23,5 +23,5 @@
         android:layout_centerVertical="true"
         android:indeterminateDrawable="@drawable/dear_progress_bar"
         android:indeterminateOnly="true"
-        android:visibility="invisible"/>
+        android:visibility="visible"/>
 </RelativeLayout>

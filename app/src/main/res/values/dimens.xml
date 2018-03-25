@@ -3,6 +3,7 @@
     <dimen name="BUTTOM_HEIGHT">60dp</dimen>
     <dimen name="UNDER_BUTTON_LINE_PADDING">8dp</dimen>
     <dimen name="NOTE_PADDING">0dp</dimen>
+    <dimen name="ONE_NOTE_SIDES_PADDING">12dp</dimen>
     <dimen name="TITLE_TEXT_SIZE">32sp</dimen>
     <dimen name="MIDDLE_TEXT_SIZE">24sp</dimen>
     <dimen name="SMALL_TEXT_SIZE">16sp</dimen>
