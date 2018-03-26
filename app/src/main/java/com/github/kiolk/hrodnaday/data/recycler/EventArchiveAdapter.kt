@@ -17,9 +17,11 @@ import kotlinx.android.synthetic.main.card_one_event_archive.view.*
 class EventArchiveAdapter(private val pContext: Context, private var pNotes: Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>(), Filterable {
 
     lateinit var notes : Array<DayNoteModel>
+    var sizeOfNotes = 0
     init {
         pNotes = pNotes.filter { it.language == pContext.resources.configuration.locale.language }.toTypedArray()
         notes = pNotes
+        val sizeOfNotes = pNotes.size
     }
         lateinit var notesFiltered : Array<DayNoteModel>
 
@@ -70,6 +72,7 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 pNotes = results?.values as Array<DayNoteModel>
+                sizeOfNotes = pNotes.size
                 notifyDataSetChanged()
             }
         }

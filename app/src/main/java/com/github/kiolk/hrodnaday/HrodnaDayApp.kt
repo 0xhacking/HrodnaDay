@@ -1,6 +1,7 @@
 package com.github.kiolk.hrodnaday
 
 import android.app.Application
+import android.util.Log
 import com.github.kiolk.hrodnaday.data.database.DBConnector
 import com.google.firebase.messaging.FirebaseMessaging
 import kiolk.com.github.pen.Pen
@@ -10,7 +11,8 @@ class HrodnaDayApp : Application(){
 
     override fun onCreate() {
         super.onCreate()
-//        DBConnector.initInstance(this)
+        Log.d("MyLogs", "Start HrodnaDayApp")
+        DBConnector.initInstance(this)
         FirebaseMessaging.getInstance().subscribeToTopic("All")
         Pen.getInstance()
                 .setLoaderSettings()

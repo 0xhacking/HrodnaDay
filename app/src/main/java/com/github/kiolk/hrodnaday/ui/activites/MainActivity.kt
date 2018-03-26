@@ -3,6 +3,7 @@ package com.github.kiolk.hrodnaday.ui
 import android.app.*
 import android.content.Context
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -55,27 +56,28 @@ class MainActivity : AppCompatActivity() {
     var mEventListener : ChildEventListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        Log.d("MyLogs", "Start onCreate")
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.MyTheme_Dark)
         } else {
             setTheme(R.style.MyTheme_Light)
         }
         loadData()
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         super.onCreate(savedInstanceState)
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mFirebaseDatabase.reference.child("days")
-        FirebaseMessaging.getInstance().subscribeToTopic("All")
+//        FirebaseMessaging.getInstance().subscribeToTopic("All")
 
         if (intent != null) {
             lastViewPagerPosition = intent.getIntExtra("position", 0)
         }
         setContentView(R.layout.activity_main)
 
-        DBConnector.initInstance(this)
+//        DBConnector.initInstance(this)
 
-        initImageLoader()
+//        initImageLoader()
         initToolBar()
 
         mFragmentManager = fragmentManager
@@ -102,7 +104,7 @@ class MainActivity : AppCompatActivity() {
 //                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
                         mainMenu.findItem(R.id.day_night_menu_item).isVisible = false
                         mainMenu.findItem(R.id.language_menu_item).isVisible = false
-//                        mainMenu.findItem(R.id.advance_menu_item).isVisible = true
+                        mainMenu.findItem(R.id.advance_menu_item).isVisible = true
                     }
                     archive_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)

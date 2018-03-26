@@ -25,7 +25,7 @@ class ArchiveFragment : Fragment(){
         SendRequestAsyncTask().execute(RequestModelFromDB(
                 object : ResultCallback<ResponseModel>{
                     override fun onSuccess(param: ResponseModel) {
-                        view.archive_events_recycler_view.layoutManager = LinearLayoutManager(activity.baseContext)
+                        view.archive_events_recycler_view.layoutManager = LinearLayoutManager(activity.baseContext, LinearLayoutManager.VERTICAL,  false)
                         view.archive_events_recycler_view.addOnItemTouchListener(RecyclerTouchListener(activity.baseContext, view.archive_events_recycler_view, object : ClickListener{
                             override fun onClick(view: View, position: Int) {
                                 Log.d("MyLogs", "onClick Id ${view.title_card_text_view.text} and $position event")
