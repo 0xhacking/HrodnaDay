@@ -12,6 +12,7 @@ import android.widget.Filterable
 import android.widget.TextView
 import com.github.kiolk.hrodnaday.DayNoteModel
 import com.github.kiolk.hrodnaday.R
+import com.github.kiolk.hrodnaday.reversSortCollection
 import kotlinx.android.synthetic.main.card_one_event_archive.view.*
 
 class EventArchiveAdapter(private val pContext: Context, private var pNotes: Array<DayNoteModel>) : RecyclerView.Adapter<EventArchiveAdapter.EventArchiveViewHolder>(), Filterable {
@@ -19,6 +20,7 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
     lateinit var notes : Array<DayNoteModel>
     var sizeOfNotes = 0
     init {
+        pNotes = reversSortCollection(pNotes)
         pNotes = pNotes.filter { it.language == pContext.resources.configuration.locale.language }.toTypedArray()
         notes = pNotes
         val sizeOfNotes = pNotes.size
@@ -58,12 +60,10 @@ class EventArchiveAdapter(private val pContext: Context, private var pNotes: Arr
                 } else {
                     val titleFiltered = notes.filter { it.title.toLowerCase().contains(searchString) }.toTypedArray()
                     val authorFiltered = notes.filter { it.author.toLowerCase().contains(searchString) }.toTypedArray()
-                    val collection : Array<DayNoteModel> = titleFiltered
-                    collection.plus(authorFiltered).toSet()
-//                    authorFiltered.forEach { collection. }
-
-//                    collection.all { authorFiltered.any() }
-                    notesFiltered = collection
+                    val collection : MutableList<DayNoteModel> = mutableListOf()
+                    collection.addAll(titleFiltered)
+                    collection.addAll(authorFiltered)
+                    notesFiltered = collection.toSet().toTypedArray()
                 }
                 val filterResults = FilterResults()
                 filterResults.values = notesFiltered

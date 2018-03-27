@@ -23,3 +23,11 @@ fun getCurrentDay() : Long{
     val currentTimeMillis = System.currentTimeMillis()
     return currentTimeMillis - currentTimeMillis.rem(86400000) + 86400000
 }
+
+fun reversSortCollection( array: Array<DayNoteModel>) : Array<DayNoteModel>{
+    val tmp = array
+    var newArray : MutableList<DayNoteModel> = tmp.toMutableList()
+    newArray = newArray.asReversed()
+    return newArray.toList().toTypedArray()
+}
+
