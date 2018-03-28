@@ -2,8 +2,8 @@ package com.github.kiolk.hrodnaday
 
 import com.github.kiolk.hrodnaday.data.database.DBOperations
 import com.github.kiolk.hrodnaday.data.http.HttpClient
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.google.gson.Gson
-import java.util.ArrayList
 
 interface SendRequest {
     fun perform(): ResponseModel

@@ -1,13 +1,12 @@
 package com.github.kiolk.hrodnaday.data.services
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.support.v4.app.NotificationCompat
 import android.support.v4.app.NotificationManagerCompat
-import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.data.database.DBOperations
 import com.github.kiolk.hrodnaday.getCurrentDay

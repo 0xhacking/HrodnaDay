@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.github.kiolk.hrodnaday.*
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.data.recycler.OneEventAdapter
 import com.github.kiolk.hrodnaday.data.recycler.PictureClickListener
 import com.github.kiolk.hrodnaday.ui.activites.PictureActivity

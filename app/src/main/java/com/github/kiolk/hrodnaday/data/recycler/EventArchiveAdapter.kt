@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
-import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.reversSortCollection
 import kotlinx.android.synthetic.main.card_one_event_archive.view.*

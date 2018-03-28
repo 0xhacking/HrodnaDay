@@ -2,7 +2,7 @@ package com.github.kiolk.hrodnaday.data.database
 
 import android.content.ContentValues
 import android.database.Cursor
-import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.ARTICLE_AUTHOR
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.AUTHOR
 import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.CREATING

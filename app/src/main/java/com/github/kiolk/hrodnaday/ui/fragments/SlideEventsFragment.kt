@@ -18,7 +18,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.MuseumActivity
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.ui.activites.PictureActivity
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.convertEpochTime
@@ -32,7 +33,7 @@ class SlideEventsFragment: Fragment() {
     lateinit var dayNote : DayNoteModel
      var dayType : Int? = 1
 
-    fun formInstance( dayNote : DayNoteModel?, typeofDay : Int?) : SlideEventsFragment{
+    fun formInstance(dayNote : DayNoteModel?, typeofDay : Int?) : SlideEventsFragment{
         val day : SlideEventsFragment = SlideEventsFragment()
         val bundle : Bundle = Bundle()
         dayNote?.day?.let { bundle.putLong("day", it) }
@@ -106,7 +107,7 @@ fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
     val spannableContent = SpannableString(dayNote.museum)
     spannableContent.setSpan(UnderlineSpan(), 0, spannableContent.length, 0)
     view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.text = spannableContent
-    view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.setOnClickListener { openUrl(dayNote.museumUrl, view.context) }
+    view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.setOnClickListener { openMuseumPage("New Castle", view.context)}//openUrl(dayNote.museumUrl, view.context) }
     view?.findViewById<TextView>(R.id.author_article_one_card_text_view)?.text = dayNote.articleAuthor
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -127,4 +128,9 @@ fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
 fun openUrl( url : String, context : Context){
     val browserIntent : Intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
     startActivity(context, browserIntent, null)
+}
+
+fun openMuseumPage(museum: String, context : Context){
+    val intnt : Intent = Intent(context, MuseumActivity::class.java)
+    startActivity(context, intnt, null)
 }

@@ -3,16 +3,14 @@ package com.github.kiolk.hrodnaday.data.recycler
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
-import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.convertEpochTime
 import kiolk.com.github.pen.GetBitmapCallback

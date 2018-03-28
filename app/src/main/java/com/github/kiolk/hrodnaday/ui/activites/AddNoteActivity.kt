@@ -3,7 +3,7 @@ package com.github.kiolk.hrodnaday.ui.activites
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.github.kiolk.hrodnaday.DayNoteModel
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.RequestPostToFCM
 import com.github.kiolk.hrodnaday.SendRequestAsyncTask
@@ -27,7 +27,7 @@ class AddNoteActivity : AppCompatActivity() {
                 R.id.send_button -> {
                     val day : Long = date_editor_text_view.text.toString().toLong()
                     val oneNewNote: DayNoteModel = DayNoteModel(day)
-                    mDatabaseReference.push().setValue(oneNewNote)
+                    mDatabaseReference.child("1").child("day").setValue(1111122222333)
                 }
                 R.id.send_notification_button -> {
                     SendRequestAsyncTask().execute(RequestPostToFCM("https://gcm-http.googleapis.com/gcm/send"))

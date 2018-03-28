@@ -2,6 +2,7 @@ package com.github.kiolk.hrodnaday
 
 import android.content.Context
 import android.net.ConnectivityManager
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import java.text.SimpleDateFormat
 import java.util.*
 

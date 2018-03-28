@@ -19,14 +19,13 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
-
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
         </activity>
         <activity
@@ -34,13 +33,17 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity android:name=".ui.activites.AddNoteActivity" />
 
-        <service android:name=".data.services.FcmService"
+        <service
+            android:name=".data.services.FcmService"
             android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
+
+        <activity android:name=".MuseumActivity">
+        </activity>
     </application>
 
 </manifest>

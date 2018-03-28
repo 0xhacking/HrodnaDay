@@ -16,8 +16,9 @@ import android.view.View
 import android.support.v7.widget.SearchView
 import com.github.kiolk.hrodnaday.*
 import com.github.kiolk.hrodnaday.R
-import com.github.kiolk.hrodnaday.data.database.DBConnector
 import com.github.kiolk.hrodnaday.data.database.DBOperations
+import com.github.kiolk.hrodnaday.data.models.DayNoteModel
+import com.github.kiolk.hrodnaday.data.models.WorkTime
 import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
 import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFERNCES
@@ -27,7 +28,6 @@ import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
 import com.github.kiolk.hrodnaday.ui.fragments.LeavingMessageFragment
 import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
 import com.google.firebase.database.*
-import com.google.firebase.messaging.FirebaseMessaging
 import kiolk.com.github.pen.Pen
 import kiolk.com.github.pen.utils.PenConstantsUtil.*
 import kotlinx.android.synthetic.main.activity_main.*
@@ -176,7 +176,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
-                var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
+                Log.d("MyLogs", p0.toString())
+                    var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
+
                 dayNote?.let { DBOperations().insert(it) }
                 Log.d("MyLogs", "day = ${dayNote?.day}")
             }
@@ -185,6 +187,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         mDatabaseReference.addChildEventListener(mEventListener)
+//        val string : String = WorkTime(mondayStart = 4.5F).showWorkTime(resources.getStringArray(R.array.DAYS))
     }
 
 

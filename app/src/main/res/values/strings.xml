@@ -19,4 +19,7 @@
     <string name="SEND_NOTIFICATION">Send notification</string>
     <string name="COME_BACK_TOMORROW">Come back tomorrow to get your pic of history!</string>
     <string name="HRODNA_DAY_TEAM">HrodnaDay team</string>
+    <array name="DAYS">
+        <item name="Monday">Monday</item>
+    </array>
 </resources>

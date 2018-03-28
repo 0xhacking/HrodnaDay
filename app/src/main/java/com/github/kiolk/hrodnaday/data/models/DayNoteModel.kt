@@ -1,4 +1,4 @@
-package com.github.kiolk.hrodnaday
+package com.github.kiolk.hrodnaday.data.models
 
 import java.io.Serializable
 
