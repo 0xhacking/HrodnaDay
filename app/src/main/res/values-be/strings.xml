@@ -19,4 +19,16 @@
     <string name="DAY_NIGHT">Дзень/Ноч</string>
     <string name="COME_BACK_TOMORROW">Вяртайцеся заўтра за сваім кавалачкам гісторыі!</string>
     <string name="HRODNA_DAY_TEAM">Каманда HrodnaDay</string>
+    <string name="WORK_TIME">Час працы:</string>
+    <array name="DAYS">
+        <item name="Monday">Пан</item>
+        <item name="Thursday">Аўт</item>
+        <item name="Wednesday">Скр</item>
+        <item name="Tuesday">Чац</item>
+        <item name="Friday">Пят</item>
+        <item name="Saturday">Суб</item>
+        <item name="Sunday">Нядз</item>
+        <item name="Break">Перапынак</item>
+        <item name="NotWork">Выходны</item>
+    </array>
 </resources>

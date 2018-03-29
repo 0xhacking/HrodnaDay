@@ -19,7 +19,16 @@
     <string name="SEND_NOTIFICATION">Send notification</string>
     <string name="COME_BACK_TOMORROW">Come back tomorrow to get your pic of history!</string>
     <string name="HRODNA_DAY_TEAM">HrodnaDay team</string>
+    <string name="WORK_TIME">Work time:</string>
     <array name="DAYS">
-        <item name="Monday">Monday</item>
+        <item name="Monday">Mon</item>
+        <item name="Thursday">Thu</item>
+        <item name="Wednesday">Wen</item>
+        <item name="Tuesday">Tue</item>
+        <item name="Friday">Fri</item>
+        <item name="Saturday">Sut</item>
+        <item name="Sunday">Sun</item>
+        <item name="Break">Break</item>
+        <item name="NotWork">Not work</item>
     </array>
 </resources>

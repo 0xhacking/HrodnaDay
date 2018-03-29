@@ -7,6 +7,8 @@ import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.RequestPostToFCM
 import com.github.kiolk.hrodnaday.SendRequestAsyncTask
+import com.github.kiolk.hrodnaday.data.models.Museum
+import com.github.kiolk.hrodnaday.data.models.WorkTime
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_add_note.*
@@ -27,10 +29,11 @@ class AddNoteActivity : AppCompatActivity() {
                 R.id.send_button -> {
                     val day : Long = date_editor_text_view.text.toString().toLong()
                     val oneNewNote: DayNoteModel = DayNoteModel(day)
-                    mDatabaseReference.child("1").child("day").setValue(1111122222333)
+                    mDatabaseReference.child("2").setValue(oneNewNote)
                 }
                 R.id.send_notification_button -> {
-                    SendRequestAsyncTask().execute(RequestPostToFCM("https://gcm-http.googleapis.com/gcm/send"))
+                    val workTime = WorkTime(thursdayStart = 8.00F, thursdayEnd = 17.00F, thursdayBreak = "13.00-14.00", sundayStart = 9.00F, sundayEnd = 16.00F, sundayBreak = "12.00-12.30", wednesdayStart = 66.00F)
+                    mDatabaseReference.child("museums").child("DemoMuseum").setValue(Museum(nameOfMuseum = "DemoMuseum", timeWork = workTime))
                 }
             }
         }
