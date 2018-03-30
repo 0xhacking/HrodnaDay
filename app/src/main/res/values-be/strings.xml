@@ -20,6 +20,9 @@
     <string name="COME_BACK_TOMORROW">Вяртайцеся заўтра за сваім кавалачкам гісторыі!</string>
     <string name="HRODNA_DAY_TEAM">Каманда HrodnaDay</string>
     <string name="WORK_TIME">Час працы:</string>
+    <string name="CONTACTS">Contacts:</string>
+    <string name="ADDRESS">Address</string>
+    <string name="MUSEUM_DESCRIPTION">About museum:</string>
     <array name="DAYS">
         <item name="Monday">Пан</item>
         <item name="Thursday">Аўт</item>

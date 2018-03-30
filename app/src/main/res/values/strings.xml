@@ -20,6 +20,9 @@
     <string name="COME_BACK_TOMORROW">Come back tomorrow to get your pic of history!</string>
     <string name="HRODNA_DAY_TEAM">HrodnaDay team</string>
     <string name="WORK_TIME">Work time:</string>
+    <string name="CONTACTS">Contacts:</string>
+    <string name="ADDRESS">Address:</string>
+    <string name="MUSEUM_DESCRIPTION">About museum:</string>
     <array name="DAYS">
         <item name="Monday">Mon</item>
         <item name="Thursday">Thu</item>

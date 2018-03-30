@@ -89,4 +89,11 @@
         <item name="android:paddingStart">@dimen/ONE_NOTE_SIDES_PADDING</item>
     </style>
 
+    <style name="BlockInformationStyle">
+        <item name="android:background">@color/ITEM_COLOR</item>
+        <item name="android:elevation">12dp</item>
+        <item name="android:layout_marginTop">@dimen/SMALL_NOTE_PADDING</item>
+        <item name="android:layout_marginBottom">@dimen/SMALL_NOTE_PADDING</item>
+    </style>
+
 </resources>

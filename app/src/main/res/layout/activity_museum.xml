@@ -13,7 +13,9 @@
         app:expandedTitleMarginStart="70dp">
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="230dp"
+            android:elevation="15dp"
+            >
             <android.support.design.widget.CollapsingToolbarLayout
                android:id="@+id/collapsing_tool_bar"
                 android:layout_width="match_parent"
@@ -42,6 +44,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true"
+            android:background="?attr/generalBackground"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,11 +54,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:background="?attr/generalBackground">
+                    style="@style/BlockInformationStyle">
                     <TextView
                         android:id="@+id/full_museum_name_text_view"
                         android:layout_width="wrap_content"
-                        android:textColor="?attr/primaryTextColor"
                         android:textSize="@dimen/TITLE_TEXT_SIZE"
                         android:padding="@dimen/SMALL_NOTE_PADDING"
                         android:layout_height="wrap_content"/>
@@ -72,17 +74,84 @@
                         android:textSize="@dimen/SMALL_TEXT_SIZE"
                         android:padding="@dimen/SMALL_NOTE_PADDING"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    style="@style/BlockInformationStyle">
 
-                <ImageView
-                    android:id="@+id/location_museum_image_view"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@drawable/ic_map_location"/>
-                <ImageView
-                    android:id="@+id/call_in_museum_image_view"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:src="@android:drawable/sym_call_incoming"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/TITLE_TEXT_SIZE"
+                        android:text="@string/CONTACTS"/>
+                    <TextView
+                        android:id="@+id/phone_one_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/SMALL_TEXT_SIZE"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/phone_two_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/SMALL_TEXT_SIZE"
+                        android:visibility="gone"/>
+                    <TextView
+                        android:id="@+id/phone_three_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/SMALL_TEXT_SIZE"
+                        android:visibility="gone"/>
+                </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/BlockInformationStyle"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/location_museum_image_view">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/TITLE_TEXT_SIZE"
+                            android:text="@string/ADDRESS"/>
+                        <TextView
+                            android:id="@+id/address_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/SMALL_TEXT_SIZE"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+                    <ImageView
+                        android:id="@+id/location_museum_image_view"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_map_location"/>
+                </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        style="@style/BlockInformationStyle">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/TITLE_TEXT_SIZE"
+                            android:text="@string/MUSEUM_DESCRIPTION"/>
+                        <TextView
+                            android:id="@+id/museum_description_text_view"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/SMALL_TEXT_SIZE"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
             </LinearLayout>
 
 
