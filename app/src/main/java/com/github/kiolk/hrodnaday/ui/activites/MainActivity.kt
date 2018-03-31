@@ -381,6 +381,8 @@ class MainActivity : AppCompatActivity() {
         full_screen_frame_layout.visibility = View.VISIBLE
         main_frame_layout.visibility = View.GONE
         button_linear_layout.visibility = View.INVISIBLE
+        main_tool_bar.visibility = View.INVISIBLE
+        separate_line_linear_layout.visibility = View.INVISIBLE
         showFragment(R.id.full_screen_frame_layout, oneEvent)
         oneEvent?.showChosenDay(date)
     }
@@ -393,6 +395,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun closeFragment(pFragment: Fragment?) {
+        main_tool_bar.visibility = View.VISIBLE
+        separate_line_linear_layout.visibility = View.VISIBLE
         mTransaction = mFragmentManager?.beginTransaction()
         mTransaction?.remove(pFragment)
         mTransaction?.commit()

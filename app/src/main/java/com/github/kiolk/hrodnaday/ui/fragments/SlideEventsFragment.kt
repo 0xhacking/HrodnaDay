@@ -110,7 +110,7 @@ fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
     view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.text = spannableContent
     view?.findViewById<TextView>(R.id.museum_one_card_text_view)?.setOnClickListener {
         val museumUrl = dayNote.museumUrl
-        if (museumUrl.contains("Http")) {
+        if (museumUrl.contains("http", true)) {
             openUrl(museumUrl, view.context)
         } else {
             openMuseumPage(dayNote.museum, view.context)

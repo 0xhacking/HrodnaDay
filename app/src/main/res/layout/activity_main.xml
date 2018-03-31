@@ -8,6 +8,13 @@
     tools:context="com.github.kiolk.hrodnaday.ui.MainActivity"
     android:background="?attr/generalBackground">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_high"
+        android:background="?attr/generalBackground"
+        android:scaleType="centerCrop"/>
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_tool_bar"
@@ -52,9 +59,11 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/separate_line_linear_layout"
         android:layout_below="@+id/main_tool_bar"
         android:layout_width="match_parent"
         android:layout_height="3dp"
+        android:orientation="vertical"
         android:background="@color/UNDER_BUTTON_LINE"/>
 
     <FrameLayout

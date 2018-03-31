@@ -5,11 +5,17 @@
     <color name="colorAccent">#FF4081</color>
     <color name="UPPER_BUTTON_LINE">#081273</color>
     <color name="BUTTON_COLOR">#00BCD4</color>
-    <color name="PRESSED_GENERAL_BUTTON">#f2d879</color>
-    <color name="UNDER_BUTTON_LINE">#a4840c</color>
+    <color name="PRESSED_GENERAL_BUTTON">#917369</color>
+    <color name="UNDER_BUTTON_LINE">#795548</color>
     <color name="COLORLESS">#00000000</color>
     <color name="example">#b1444444</color>
     <color name="COLORLEES">#00000000</color>
     <color name="GIPER_LINK_COLOR">#0633d4</color>
     <color name="ITEM_COLOR">#FFFFFF</color>
+
+    <color name="DARK_TEXT_COLOR">#403d39</color>
+    <color name="LIGHT_TEXT_COLOR">#ccc5b9</color>
+    <color name="LIGHT_BACKGROUND_COLOR">#e8e6dc</color>
+    <color name="DARK_BACKGROUND_COLOR">#74736e</color>
+    <color name="DARK_COLOR_OF_BACKGROUND">#50252422</color>
 </resources>

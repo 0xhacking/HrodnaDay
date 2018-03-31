@@ -48,18 +48,18 @@
     </declare-styleable>
     
     <style name="MyTheme.Light" parent="MyTheme">
-        <item name="primaryTextColor">#000000</item>
+        <item name="primaryTextColor">@color/DARK_TEXT_COLOR</item>
         <item name="backgroundColor">#50000000</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
         <item name="iconLampColor">#FFFFFF</item>
-        <item name="generalBackground">@drawable/ic_background</item>
+        <item name="generalBackground">@drawable/colorlees_background</item>
     </style>
 
     <style name="MyTheme.Dark" parent="MyTheme">
-        <item name="primaryTextColor">#FFFFFF</item>
+        <item name="primaryTextColor">@color/LIGHT_TEXT_COLOR</item>
         <item name="backgroundColor">#50f7f7f7</item>
         <item name="iconLampColor">#000000</item>
-        <item name="generalBackground">@drawable/textured_paper</item>
+        <item name="generalBackground">@drawable/dark_background</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransaction</item>
     </style>
 
