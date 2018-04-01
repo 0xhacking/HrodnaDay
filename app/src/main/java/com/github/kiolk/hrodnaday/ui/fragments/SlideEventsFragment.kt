@@ -18,8 +18,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.github.kiolk.hrodnaday.MuseumActivity
-import com.github.kiolk.hrodnaday.MuseumActivity.museumActivity.MUSEUM
+import com.github.kiolk.hrodnaday.ui.activites.MuseumActivity
+import com.github.kiolk.hrodnaday.ui.activites.MuseumActivity.museumActivity.MUSEUM
 import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.ui.activites.PictureActivity
 import com.github.kiolk.hrodnaday.R

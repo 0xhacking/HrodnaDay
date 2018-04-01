@@ -21,7 +21,7 @@
     <string name="HRODNA_DAY_TEAM">Команда HrodnaDay</string>
     <string name="WORK_TIME">Время работы:</string>
     <string name="CONTACTS">Contacts:</string>
-    <string name="ADDRESS">Address</string>
+    <string name="ADDRESS">Address:</string>
     <string name="MUSEUM_DESCRIPTION">About museum:</string>
     <array name="DAYS">
         <item name="Monday">Пн</item>

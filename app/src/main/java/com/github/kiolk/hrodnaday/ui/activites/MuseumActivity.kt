@@ -1,4 +1,4 @@
-package com.github.kiolk.hrodnaday
+package com.github.kiolk.hrodnaday.ui.activites
 
 import android.content.Intent
 import android.net.Uri
@@ -7,7 +7,8 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import android.widget.TextView
-import com.github.kiolk.hrodnaday.MuseumActivity.museumActivity.MUSEUM
+import com.github.kiolk.hrodnaday.R
+import com.github.kiolk.hrodnaday.data.database.models.NoteDBModel.NoteDB.MUSEUM
 import com.github.kiolk.hrodnaday.data.models.Museum
 import com.github.kiolk.hrodnaday.data.models.Phone
 import com.google.firebase.database.DataSnapshot
@@ -60,7 +61,14 @@ class MuseumActivity : AppCompatActivity() {
 
                 full_museum_name_text_view.text = museum?.nameOfMuseum
                 museum_description_text_view.visibility = View.VISIBLE
-                museum_description_text_view.text = museum?.museumDescription
+                museum_description_text_view.text = museum?.museumDescriptionEn
+
+                when {
+                    baseContext.resources.configuration.locale == Locale.ENGLISH -> museum_description_text_view.text = museum?.museumDescriptionEn
+                    baseContext.resources.configuration.locale.displayName == "be" -> museum_description_text_view.text = museum?.museumDescriptionBe
+                    else -> museum_description_text_view.text = museum?.museumDescriptionRu
+                }
+
                 work_time_text_view.text = museum?.timeWork?.showWorkTime(resources.getStringArray(R.array.DAYS))
                 val phones = museum?.phones
                 if (phones != null) {

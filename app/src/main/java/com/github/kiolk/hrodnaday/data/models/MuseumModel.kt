@@ -9,7 +9,9 @@ data class Museum(var nameOfMuseum: String = "Museum",
                   var museumLatitude: Float = 53.701312F,
                   var museumShirota: Float = 23.812323F,
                   var museumAddress: String = "address",
-                  var museumDescription: String = "description",
+                  var museumDescriptionEn: String = "descriptionEn",
+                  var museumDescriptionRu: String = "descriptionRu",
+                  var museumDescriptionBe: String = "descriptionBy",
                   var phones: List<Phone> = listOf(Phone(), Phone("+375", "152", "720590")),
                   var chef: String = "chef",
                   var timeWork : WorkTime = WorkTime()
@@ -49,6 +51,7 @@ data class WorkTime(var mondayStart: Float = 0.0F,
         var stringBuilder = StringBuilder()
         var firstDay = true
         var lastDay = "Last"
+
                  fun addOneDay(day : String, breakWord : String, start : Float, end : Float, breakTime : String) : String{
                     if (start == 0.0F){
                         if(firstDay){
@@ -70,6 +73,7 @@ data class WorkTime(var mondayStart: Float = 0.0F,
                         return "$day: ${start}0-${end}0 ${if (breakTime!="No"){"$breakWord: $breakTime"}else{""} }\n"
                     }
                 }
+
         stringBuilder.append(addOneDay(array.get(0), array.get(7), mondayStart, mondayEnd, mondayBreak))
         stringBuilder.append(addOneDay(array.get(1), array.get(7), thursdayStart, thursdayEnd, thursdayBreak))
         stringBuilder.append(addOneDay(array.get(2), array.get(7), wednesdayStart, wednesdayEnd,wednesdayBreak))
@@ -77,7 +81,6 @@ data class WorkTime(var mondayStart: Float = 0.0F,
         stringBuilder.append(addOneDay(array.get(4), array.get(7), fridayStart, fridayEnd, fridayBreak))
         stringBuilder.append(addOneDay(array.get(5), array.get(7), saturdayStart, saturdayEnd, saturdayBreak))
         stringBuilder.append(addOneDay(array.get(6), array.get(7), sundayStart, sundayEnd, sundayBreak))
-
         return stringBuilder.toString()
     }
 

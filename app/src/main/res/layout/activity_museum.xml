@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.github.kiolk.hrodnaday.MuseumActivity">
+    tools:context="com.github.kiolk.hrodnaday.ui.activites.MuseumActivity">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -138,6 +138,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         style="@style/BlockInformationStyle">
                         <TextView
                             android:layout_width="wrap_content"

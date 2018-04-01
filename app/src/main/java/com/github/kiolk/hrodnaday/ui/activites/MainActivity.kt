@@ -15,12 +15,10 @@ import android.view.MenuItem
 import android.view.View
 import android.support.v7.widget.SearchView
 import com.github.kiolk.hrodnaday.*
-import com.github.kiolk.hrodnaday.MuseumActivity.museumActivity.MUSEUMS
 import com.github.kiolk.hrodnaday.R
 import com.github.kiolk.hrodnaday.data.database.DBOperations
 import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import com.github.kiolk.hrodnaday.data.models.Museum
-import com.github.kiolk.hrodnaday.data.models.WorkTime
 import com.github.kiolk.hrodnaday.data.recycler.EventArchiveAdapter
 import com.github.kiolk.hrodnaday.data.recycler.ItemClickListener
 import com.github.kiolk.hrodnaday.ui.MainActivity.sdd.LANGUAGE_PREFERNCES

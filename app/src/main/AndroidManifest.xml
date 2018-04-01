@@ -42,7 +42,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".MuseumActivity">
+        <activity android:name=".ui.activites.MuseumActivity">
         </activity>
     </application>
 

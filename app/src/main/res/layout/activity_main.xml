@@ -11,10 +11,13 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background_high"
-        android:background="?attr/generalBackground"
+        android:src="@drawable/texture_background"
         android:scaleType="centerCrop"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/generalBackground"/>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/main_tool_bar"
