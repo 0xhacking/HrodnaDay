@@ -27,6 +27,7 @@ import com.github.kiolk.hrodnaday.ui.activites.AddNoteActivity
 import com.github.kiolk.hrodnaday.ui.fragments.ArchiveFragment
 import com.github.kiolk.hrodnaday.ui.fragments.LeavingMessageFragment
 import com.github.kiolk.hrodnaday.ui.fragments.OneEventFragment
+import com.github.kiolk.hrodnaday.ui.fragments.SplashFragment
 import com.google.firebase.database.*
 import kiolk.com.github.pen.Pen
 import kiolk.com.github.pen.utils.PenConstantsUtil.*
@@ -45,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     var mFragmentManager: FragmentManager? = null
     var archive: ArchiveFragment? = null
     var oneEvent: OneEventFragment? = null
+    lateinit var mSplashFragment : SplashFragment
     var arrayDayEvents: Array<DayNoteModel>? = null
     var lastViewPagerPosition: Int? = null
     var mCurrentDay : Long = 0
@@ -68,7 +70,6 @@ class MainActivity : AppCompatActivity() {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mFirebaseDatabase.reference.child("days")
-//        FirebaseMessaging.getInstance().subscribeToTopic("All")
          val ref = mFirebaseDatabase.reference.child("museums")
         val mus = Museum(nameOfMuseum = "DemoMuseum")
         ref.setValue(mus)
@@ -77,16 +78,19 @@ class MainActivity : AppCompatActivity() {
             lastViewPagerPosition = intent.getIntExtra("position", 0)
         }
         setContentView(R.layout.activity_main)
-
-//        DBConnector.initInstance(this)
-
-//        initImageLoader()
         initToolBar()
 
         mFragmentManager = fragmentManager
         archive = ArchiveFragment()
         oneEvent = OneEventFragment()
+        mSplashFragment = SplashFragment()
         mCurrentDay = getCurrentDay()
+        if(!intent.getBooleanExtra("restart", false)){
+            mSplashFragment = SplashFragment()
+            showFullFrame()
+            showFragment(R.id.full_screen_frame_layout, mSplashFragment)
+        }
+
 
         val listener = View.OnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -135,8 +139,6 @@ class MainActivity : AppCompatActivity() {
             day_event_button_text_view.background = resources.getDrawable(R.drawable.button_under_background)
         }
 
-        setUpData()
-
         attachEventListener()
     }
 
@@ -152,6 +154,10 @@ class MainActivity : AppCompatActivity() {
                             Log.d("MyLogs", locale)
                             arrayDayEvents = arrayEvents?.filter { it.day < getCurrentDay() }?.toTypedArray()
                             arrayDayEvents = arrayDayEvents?.filter { it.language.equals(locale) }?.sortedBy { it.day }?.toTypedArray()
+                            if(!intent.getBooleanExtra("restart", false)){
+                                closeFullFrame()
+                                closeFragment(mSplashFragment)
+                            }
                             startDayEventViewPager()
                         }
 
@@ -182,8 +188,13 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MyLogs", p0.toString())
                     var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
 
-                dayNote?.let { DBOperations().insert(it) }
+                dayNote?.let { DBOperations().insert(it)
+                }
                 Log.d("MyLogs", "day = ${dayNote?.day}")
+                if(dayNote?.day !=null && (dayNote.day > mCurrentDay || dayNote.day == 0L)){
+                    Log.d("MyLogs", "Get last day. And start show main fragment")
+                    setUpData()
+                }
             }
 
             override fun onChildRemoved(p0: DataSnapshot?) {
@@ -326,7 +337,7 @@ class MainActivity : AppCompatActivity() {
         if (position != null) {
             intent.putExtra("position", position)
         }
-
+        intent.putExtra("restart", true)
         startActivity(intent)
         finish()
     }
@@ -354,15 +365,19 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (full_screen_frame_layout.visibility == View.VISIBLE) {
             closeFragment(oneEvent)
-            full_screen_frame_layout.visibility = View.GONE
-            main_frame_layout.visibility = View.VISIBLE
-            button_linear_layout.visibility = View.VISIBLE
+            closeFullFrame()
         } else if (!searchView.isIconified) {
             searchView.isIconified = true
         } else {
             LeavingMessageFragment().show(supportFragmentManager, null)
 //            super.onBackPressed()
         }
+    }
+
+    private fun closeFullFrame() {
+        full_screen_frame_layout.visibility = View.GONE
+        main_frame_layout.visibility = View.VISIBLE
+        button_linear_layout.visibility = View.VISIBLE
     }
 
     fun showArchiveFragment() {
@@ -376,13 +391,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showOneEventFragment(date: Long) {
+        showFullFrame()
+        showFragment(R.id.full_screen_frame_layout, oneEvent)
+        oneEvent?.showChosenDay(date)
+    }
+
+    private fun showFullFrame() {
         full_screen_frame_layout.visibility = View.VISIBLE
         main_frame_layout.visibility = View.GONE
         button_linear_layout.visibility = View.INVISIBLE
         main_tool_bar.visibility = View.INVISIBLE
         separate_line_linear_layout.visibility = View.INVISIBLE
-        showFragment(R.id.full_screen_frame_layout, oneEvent)
-        oneEvent?.showChosenDay(date)
     }
 
     fun showFragment(pContainer: Int, pFragment: Fragment?) {
@@ -427,5 +446,4 @@ class MainActivity : AppCompatActivity() {
             return super.getItemPosition(`object`)
         }
     }
-
 }

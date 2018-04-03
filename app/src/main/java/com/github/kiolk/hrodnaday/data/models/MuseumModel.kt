@@ -52,7 +52,7 @@ data class WorkTime(var mondayStart: Float = 0.0F,
         var firstDay = true
         var lastDay = "Last"
 
-                 fun addOneDay(day : String, breakWord : String, start : Float, end : Float, breakTime : String, last : Boolean = false) : String{
+                 fun addOneDay(day : String, breakWord : String, start : Float, end : Float, breakTime : String, last : Boolean = true) : String{
                     if (start == 0.0F){
                         if(firstDay){
                              firstDay = false
@@ -93,7 +93,7 @@ data class WorkTime(var mondayStart: Float = 0.0F,
         stringBuilder.append(addOneDay(array.get(3), array.get(7), tuesdayStart, tuesdayEnd, tuesdayBreak))
         stringBuilder.append(addOneDay(array.get(4), array.get(7), fridayStart, fridayEnd, fridayBreak))
         stringBuilder.append(addOneDay(array.get(5), array.get(7), saturdayStart, saturdayEnd, saturdayBreak))
-        stringBuilder.append(addOneDay(array.get(6), array.get(7), sundayStart, sundayEnd, sundayBreak))
+        stringBuilder.append(addOneDay(array.get(6), array.get(7), sundayStart, sundayEnd, sundayBreak, false))
         return stringBuilder.toString()
     }
 

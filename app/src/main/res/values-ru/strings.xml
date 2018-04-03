@@ -23,6 +23,7 @@
     <string name="CONTACTS">Contacts:</string>
     <string name="ADDRESS">Address:</string>
     <string name="MUSEUM_DESCRIPTION">About museum:</string>
+    <string name="YOUR_PEACE_OF_HISTORY">Your peace of Hrodna history</string>
     <array name="DAYS">
         <item name="Monday">Пн</item>
         <item name="Thursday">Вт</item>
