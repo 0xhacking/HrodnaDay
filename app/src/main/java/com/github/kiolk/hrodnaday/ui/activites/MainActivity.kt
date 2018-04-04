@@ -46,16 +46,17 @@ class MainActivity : AppCompatActivity() {
     var mFragmentManager: FragmentManager? = null
     var archive: ArchiveFragment? = null
     var oneEvent: OneEventFragment? = null
-    lateinit var mSplashFragment : SplashFragment
+    lateinit var mSplashFragment: SplashFragment
     var arrayDayEvents: Array<DayNoteModel>? = null
     var lastViewPagerPosition: Int? = null
-    var mCurrentDay : Long = 0
+    var mCurrentDay: Long = 0
+    var redyStopSplash = false
     lateinit var mainMenu: Menu
     lateinit var searchView: SearchView
 
-    lateinit var mFirebaseDatabase : FirebaseDatabase
-    lateinit var mDatabaseReference : DatabaseReference
-    var mEventListener : ChildEventListener? = null
+    lateinit var mFirebaseDatabase: FirebaseDatabase
+    lateinit var mDatabaseReference: DatabaseReference
+    var mEventListener: ChildEventListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("MyLogs", "Start onCreate")
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
 
         mFirebaseDatabase = FirebaseDatabase.getInstance()
         mDatabaseReference = mFirebaseDatabase.reference.child("days")
-         val ref = mFirebaseDatabase.reference.child("museums")
+        val ref = mFirebaseDatabase.reference.child("museums")
         val mus = Museum(nameOfMuseum = "DemoMuseum")
         ref.setValue(mus)
         Log.d("MyLogs", mus.toString())
@@ -85,10 +86,20 @@ class MainActivity : AppCompatActivity() {
         oneEvent = OneEventFragment()
         mSplashFragment = SplashFragment()
         mCurrentDay = getCurrentDay()
-        if(!intent.getBooleanExtra("restart", false)){
+        if (!intent.getBooleanExtra("restart", false)) {
             mSplashFragment = SplashFragment()
             showFullFrame()
             showFragment(R.id.full_screen_frame_layout, mSplashFragment)
+            SplashAsinckTask().execute(object : SplashListener {
+                override fun endShowSplash() {
+                    if (redyStopSplash) {
+                        closeFullFrame()
+                        closeFragment(mSplashFragment)
+                    }else{
+                        redyStopSplash = true
+                    }
+                }
+            })
         }
 
 
@@ -144,7 +155,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpData() {
         if (checkConnection(this)) {
-    //            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
+            //            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
             SendRequestAsyncTask().execute(RequestModelFromDB(
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {
@@ -154,10 +165,16 @@ class MainActivity : AppCompatActivity() {
                             Log.d("MyLogs", locale)
                             arrayDayEvents = arrayEvents?.filter { it.day < getCurrentDay() }?.toTypedArray()
                             arrayDayEvents = arrayDayEvents?.filter { it.language.equals(locale) }?.sortedBy { it.day }?.toTypedArray()
-                            if(!intent.getBooleanExtra("restart", false)){
-                                closeFullFrame()
-                                closeFragment(mSplashFragment)
+
+                            if (!intent.getBooleanExtra("restart", false)) {
+                                if (redyStopSplash) {
+                                    closeFullFrame()
+                                    closeFragment(mSplashFragment)
+                                } else {
+                                    redyStopSplash = true
+                                }
                             }
+
                             startDayEventViewPager()
                         }
 
@@ -168,8 +185,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun attachEventListener() {
-        mEventListener = object : ChildEventListener{
+        mEventListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError?) {
 
             }
@@ -186,12 +204,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onChildAdded(p0: DataSnapshot?, p1: String?) {
                 Log.d("MyLogs", p0.toString())
-                    var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
+                var dayNote = p0?.getValue<DayNoteModel>(DayNoteModel::class.java)
 
-                dayNote?.let { DBOperations().insert(it)
+                dayNote?.let {
+                    DBOperations().insert(it)
                 }
                 Log.d("MyLogs", "day = ${dayNote?.day}")
-                if(dayNote?.day !=null && (dayNote.day > mCurrentDay || dayNote.day == 0L)){
+                if (dayNote?.day != null && (dayNote.day > mCurrentDay || dayNote.day == 0L)) {
                     Log.d("MyLogs", "Get last day. And start show main fragment")
                     setUpData()
                 }
@@ -207,7 +226,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (mEventListener != null){
+        if (mEventListener != null) {
             mDatabaseReference.removeEventListener(mEventListener)
             mEventListener == null
         }
@@ -215,10 +234,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (mEventListener == null){
+        if (mEventListener == null) {
             attachEventListener()
         }
-        if(mCurrentDay != getCurrentDay()){
+        if (mCurrentDay != getCurrentDay()) {
             restartActivity(events_view_pager.currentItem)
             mCurrentDay = getCurrentDay()
         }
@@ -295,7 +314,7 @@ class MainActivity : AppCompatActivity() {
                 restartActivity(null)
             }
             R.id.advance_menu_item -> {
-                val intent : Intent = Intent(this, AddNoteActivity::class.java)
+                val intent: Intent = Intent(this, AddNoteActivity::class.java)
                 startActivity(intent)
             }
         }
@@ -317,7 +336,7 @@ class MainActivity : AppCompatActivity() {
     fun loadData() {
         val preferences = getSharedPreferences(LANGUAGE_PREFERNCES, Activity.MODE_PRIVATE)
         val lang = preferences.getString(LANGUAGE_PREFIX, "en")
-        if(lang != resources.configuration.locale.language) {
+        if (lang != resources.configuration.locale.language) {
             changeLocale(lang)
         }
     }
