@@ -119,14 +119,12 @@ class MainActivity : AppCompatActivity() {
                 when (it) {
                     about_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
-//                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.PRESSED_GENERAL_BUTTON))
                         mainMenu.findItem(R.id.day_night_menu_item).isVisible = false
                         mainMenu.findItem(R.id.language_menu_item).isVisible = false
                         mainMenu.findItem(R.id.advance_menu_item).isVisible = true
                     }
                     archive_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
-//                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.BUTTON_COLOR))
                         showArchiveFragment()
                         mainMenu.findItem(R.id.search_menu_item).isVisible = true
                         mainMenu.findItem(R.id.day_night_menu_item).isVisible = false
@@ -134,9 +132,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     day_event_button_text_view -> {
                         it.background = resources.getDrawable(R.drawable.button_under_background)
-//                        main_frame_layout.setBackgroundColor(resources.getColor(R.color.UPPER_BUTTON_LINE))
                         events_view_pager.visibility = View.VISIBLE
-//                        if(arrayDayEvents != null) startDayEventViewPager()
                     }
                 }
             }
