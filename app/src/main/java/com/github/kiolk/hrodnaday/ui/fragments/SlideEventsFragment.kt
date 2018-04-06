@@ -98,7 +98,6 @@ class SlideEventsFragment : Fragment() {
 
 fun setUpNoteInView(view: View?, dayNote: DayNoteModel) {
     view?.findViewById<TextView>(R.id.day_one_event_card_text_view)?.text = convertEpochTime(dayNote.day, view?.context)
-//    Pen.getInstance().getImageFromUrl(dayNote.pictureUrl).inputTo(view?.findViewById(R.id.picture_one_event_card_image_view))
     view?.findViewById<TextView>(R.id.title_one_event_card_text_view)?.text = dayNote.title
     view?.findViewById<TextView>(R.id.author_one_event_card_text_view)?.text = dayNote.author
     view?.findViewById<TextView>(R.id.creating_one_event_card_text_view)?.text = dayNote.creating

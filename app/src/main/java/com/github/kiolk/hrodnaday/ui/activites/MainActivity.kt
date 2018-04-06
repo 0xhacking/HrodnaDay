@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     var mEventListener: ChildEventListener? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Log.d("MyLogs", "Start onCreate")
+        Log.d(MY_LOGS, "Start onCreate")
         if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             setTheme(R.style.MyTheme_Dark)
         } else {
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         val ref = mFirebaseDatabase.reference.child("museums")
         val mus = Museum(nameOfMuseum = "DemoMuseum")
         ref.setValue(mus)
-        Log.d("MyLogs", mus.toString())
+        Log.d(MY_LOGS, mus.toString())
         if (intent != null) {
             lastViewPagerPosition = intent.getIntExtra("position", 0)
         }
@@ -151,7 +151,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUpData() {
         if (checkConnection(this)) {
-            //            SendRequestAsyncTask().execute(RequestModel("http://www.json-generator.com/api/json/get/bVTePKeVmG?indent=2",
             SendRequestAsyncTask().execute(RequestModelFromDB(
                     object : ResultCallback<ResponseModel> {
                         override fun onSuccess(param: ResponseModel) {

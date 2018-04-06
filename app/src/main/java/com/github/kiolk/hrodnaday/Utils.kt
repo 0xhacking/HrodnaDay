@@ -6,6 +6,8 @@ import com.github.kiolk.hrodnaday.data.models.DayNoteModel
 import java.text.SimpleDateFormat
 import java.util.*
 
+val MY_LOGS = "MyLogs"
+
 fun checkConnection(pContext: Context): Boolean {
     val check = pContext.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     return check != null && check.activeNetworkInfo != null && check.activeNetworkInfo.isConnectedOrConnecting
