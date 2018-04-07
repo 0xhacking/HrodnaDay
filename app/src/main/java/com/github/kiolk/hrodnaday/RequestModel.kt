@@ -16,7 +16,6 @@ class RequestModel(private val url: String, private val callback: ResultCallback
         try {
             val json = HttpClient().get(url)
             noteArray = Gson().fromJson<Array<DayNoteModel>>(json, Array<DayNoteModel>::class.java)
-//            note = Gson().fromJson<DayNoteModel>(json, DayNoteModel::class.java)
         } catch (exception: Exception) {
 
             return ResponseModel(noteArray, exception, callback)
